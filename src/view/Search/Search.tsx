@@ -1,112 +1,78 @@
-// import { Component, ReactNode } from 'react';
-
-// export type MyState = {
-//   searchValue: string;
-// };
-
-// class Search extends Component<MyProps, MyState> {
-//   constructor(props = {}) {
-//     super(props);
-//     this.state = {
-//       searchValue: '',
-//     };
-//   }
-
-//   render(): ReactNode {
-//     return (
-//       <div>
-//         <form action="">
-//           <input type="text" value={this.state.searchValue} />
-//           <button type="submit">Search</button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import './Search.scss';
+import AxiosApiService from 'services/AxiosApiService';
+import axios from 'axios';
+import TypeSelect from './TypeSelect';
+
+export type PeopleRequestType = {
+  name: string;
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  eye_color: string;
+  birth_year: string;
+  gender: string;
+  homeworld: string;
+  films: string[];
+  species: [];
+  vehicles: string[];
+  starships: string[];
+  created: string;
+  edited: string;
+  url: string;
+};
 
 function Search() {
+  const STARWARS_API = useRef(AxiosApiService);
   const [searchValue, setSearchValue] = useState('');
   const [fetchError, setFetchError] = useState('');
+  const [searchType, setSearchType] = useState<string>('');
+
+  const notFoundDataHandler = () => {
+    setFetchError('Data is not found');
+  };
+
+  const getData = async (value: string, type: string) => {
+    try {
+      const response = await STARWARS_API.current.get({}, `${type || 'people'}/${value}`);
+
+      console.log(response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.response);
+        console.error(error.response?.status);
+        notFoundDataHandler();
+      } else {
+        console.error(error);
+      }
+    }
+  };
 
   useEffect(() => {
-    console.log(searchValue);
+    getData(searchValue, searchType);
+    console.log(searchType);
+  }, [searchType, searchValue]);
 
-    try {
-      const response = axios.get(`https://swapi.dev/api/people/${searchValue}`);
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      setFetchError('No data');
-    }
-  }, [searchValue]);
+  const changeSearchTypeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearchType(e.target.value);
+  };
 
   return (
     <div className="search__container">
+      <TypeSelect setSearchType={changeSearchTypeHandler} value={searchType} />
       <input
         type="text"
         value={searchValue}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setSearchValue(event.target.value);
+          setFetchError('');
         }}
       />
       <button type="button">Search</button>
-      {fetchError ? <div className="data__result">fetchError</div> : null}
+      {fetchError ? <div className="data__result">{fetchError}</div> : null}
     </div>
   );
 }
-
-// interface State {
-//   searchValue: string;
-//   fetchError: string;
-// }
-
-// class Search extends React.Component<object, State> {
-//   private readonly STARWARS_API_URL = 'https://swapi.dev/api/';
-
-//   constructor(props: object) {
-//     super(props);
-//     this.state = {
-//       searchValue: '',
-//       fetchError: '',
-//     };
-//   }
-
-//   componentDidUpdate(prevProps: object, prevState: State) {
-//     const { state } = this;
-
-//     if (prevState.searchValue !== state.searchValue) {
-//       console.log(state.searchValue);
-
-//       try {
-//         fetch(this.STARWARS_API_URL + state.searchValue)
-//           .then((response) => response.json())
-//           .then((res) => console.log(res));
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     }
-//   }
-
-//   render() {
-//     const { state } = this;
-//     return (
-//       <div>
-//         <input
-//           type="text"
-//           value={state.searchValue}
-//           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-//             this.setState({ searchValue: event.target.value });
-//           }}
-//         />
-//         <button type="button">Search</button>
-//       </div>
-//     );
-//   }
-// }
 
 export default Search;

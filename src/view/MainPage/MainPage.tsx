@@ -1,14 +1,9 @@
 import { PureComponent, ReactNode } from 'react';
-import Search from '../Search/Search';
+import Search from 'view/Search/Search';
 
 class MainPage extends PureComponent {
   render(): ReactNode {
-    return (
-      <div>
-        <Search />
-        {/* <Posts /> */}
-      </div>
-    );
+    return <Search />;
   }
 }
 
