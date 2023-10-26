@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 class AxiosApiService {
   public requestApiInstance: AxiosInstance;
 
-  private readonly API_URL = 'https://swapi.dev/api/';
+  private readonly API_URL = 'https://swapi.dev/api/people/';
 
   constructor() {
     this.requestApiInstance = axios.create({
