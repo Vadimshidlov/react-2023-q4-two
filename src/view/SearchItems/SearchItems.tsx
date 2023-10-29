@@ -1,6 +1,6 @@
-import Hero from 'view/Search/Hero';
+import Hero from 'view/Hero/Hero';
+import MyLoader from 'view/MyLoader/MyLoader';
 import { PeopleRequestType } from 'view/Search/Search';
-import ClipLoader from 'react-spinners/ClipLoader';
 
 export type SearchItemsPropsType = {
   searchData: PeopleRequestType[] | undefined;
@@ -8,14 +8,12 @@ export type SearchItemsPropsType = {
 };
 
 function SearchItems({ searchData, isLoading }: SearchItemsPropsType) {
-  console.log(`searchData with ${searchData}`);
-
   return (
     <div className={isLoading ? 'searchItems__container__center' : 'searchItems__container'}>
       <div>
         <div>
           {isLoading ? (
-            <ClipLoader color="D0021B" loading={isLoading} size={150} />
+            <MyLoader />
           ) : (
             searchData?.map((searchItem) => <Hero key={searchItem.name} heroData={searchItem} />)
           )}

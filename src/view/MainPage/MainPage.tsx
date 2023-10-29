@@ -1,9 +1,10 @@
 import Search, { PeopleRequestType } from 'view/Search/Search';
 // eslint-disable-next-line object-curly-newline
 import React, { useEffect, useRef, useState } from 'react';
-import SearchItems from 'view/Search/SearchItems';
+import SearchItems from 'view/SearchItems/SearchItems';
 import SwapiService from 'services/SwapiService';
 import './MainPage.scss';
+import ErrorButton from 'view/ErrorButton/ErrorButton';
 
 function MainPage() {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
@@ -11,10 +12,6 @@ function MainPage() {
   const [searchData, setSearchData] = useState<PeopleRequestType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const swapiApi = useRef(SwapiService);
-
-  // const notFoundDataHandler = () => {
-  //   setFetchError('Data is not found');
-  // };
 
   useEffect(() => {
     const getData = async () => {
@@ -37,20 +34,19 @@ function MainPage() {
 
   const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
-    console.log('searchFormHandler call');
     event.preventDefault();
 
     localStorage.setItem('searchValue', searchValue);
     const searchPeopleData = await swapiApi.current.searchPeoples(searchValue);
     setSearchData(searchPeopleData);
-    console.log(searchPeopleData);
 
     setIsLoading(false);
   };
 
   return (
     <div className="main-page__container">
-      <h2 className="page__title">Star Wars Heroes!!! ;)</h2>
+      <h2 className="page__title">Star Wars Heroes!!!</h2>
+      <ErrorButton />
       <Search
         searchFormHandler={searchFormHandler}
         searchValue={searchValue}

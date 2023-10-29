@@ -11,14 +11,5 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
-    // alias: {
-    //   '@': path.resolve(__dirname, './src/'),
-    //   components: `${path.resolve(__dirname, './src/components/')}`,
-    //   hooks: `${path.resolve(__dirname, './hooks/')}`,
-    //   services: `${path.resolve(__dirname, './services/')}`,
-    //   assets: `${path.resolve(__dirname, './assets/')}`,
-    //   types: `${path.resolve(__dirname, './types/')}`,
-    //   view: `${path.resolve(__dirname, './view/')}`,
-    // },
   },
 });
