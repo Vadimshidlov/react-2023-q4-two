@@ -1,0 +1,19 @@
+.main-page__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+
+  .page__title {
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    font-family: Georgia, sans-serif;
+  }
+
+  .main-page__logo {
+    width: 100%;
+  }
+}
