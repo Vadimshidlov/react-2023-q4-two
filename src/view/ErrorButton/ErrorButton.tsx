@@ -1,22 +1,35 @@
-import { useState } from 'react';
+import { Component } from 'react';
 import './ErrorButton.scss';
 
-function ErrorButton() {
-  const [error, setError] = useState<boolean>(false);
+interface State {
+  error: boolean;
+}
 
-  if (error) {
-    throw Error('Ooops! Something ERROR!');
+class ErrorButton extends Component<object, State> {
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      error: false,
+    };
   }
 
-  const generateErrorHandler = (): void => {
-    setError(true);
+  generateErrorHandler = (): void => {
+    this.setState({ error: true });
   };
 
-  return (
-    <button type="button" onClick={generateErrorHandler} className="error-button">
-      Error
-    </button>
-  );
+  render() {
+    const { error } = this.state;
+
+    if (error) {
+      throw Error('Ooops! Something ERROR!');
+    }
+
+    return (
+      <button type="button" onClick={this.generateErrorHandler} className="error-button">
+        Error
+      </button>
+    );
+  }
 }
 
 export default ErrorButton;
