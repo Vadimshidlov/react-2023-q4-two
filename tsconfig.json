@@ -28,7 +28,8 @@
       "@assets/*": ["src/assets/*"],
       "@types/*": ["src/types/*"],
       "@view/*": ["src/view/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "include": ["jest.config.ts", "vite.config.ts", ".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]

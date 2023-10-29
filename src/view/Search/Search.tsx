@@ -32,8 +32,8 @@ export type SearchPropsType = {
   searchFormHandler: (event: React.FormEvent<HTMLFormElement>) => void;
   searchValue: string;
   fetchError: string;
-  setFetchError: React.Dispatch<React.SetStateAction<string>>;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setFetchError: (value: string) => void;
+  setSearchValue: (value: string) => void;
 };
 
 class Search extends React.Component<SearchPropsType> {
