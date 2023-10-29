@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 class AxiosApiService {

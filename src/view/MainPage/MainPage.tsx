@@ -1,5 +1,4 @@
 import Search, { PeopleRequestType } from 'view/Search/Search';
-// eslint-disable-next-line object-curly-newline
 import { Component, FormEvent } from 'react';
 import SearchItems from 'view/SearchItems/SearchItems';
 import SwapiService from 'services/SwapiService';
