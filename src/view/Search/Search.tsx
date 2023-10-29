@@ -36,32 +36,29 @@ export type SearchPropsType = {
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Search({
-  searchFormHandler,
-  searchValue,
-  fetchError,
-  setFetchError,
-  setSearchValue,
-}: SearchPropsType) {
-  return (
-    <div className="search__container">
-      <form action="" className="search__form" onSubmit={searchFormHandler}>
-        <div className="search-input__container">
-          <SearchIcon />
-          <input
-            type="text"
-            value={searchValue}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchValue(event.target.value);
-              setFetchError('');
-            }}
-          />
-        </div>
-        <button type="submit">Search</button>
-      </form>
-      {fetchError ? <div className="data__result">{fetchError}</div> : null}
-    </div>
-  );
+class Search extends React.Component<SearchPropsType> {
+  changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { setSearchValue, setFetchError } = this.props;
+    setSearchValue(event.target.value);
+    setFetchError('');
+  };
+
+  render() {
+    const { searchFormHandler, searchValue, fetchError } = this.props;
+
+    return (
+      <div className="search__container">
+        <form action="" className="search__form" onSubmit={searchFormHandler}>
+          <div className="search-input__container">
+            <SearchIcon />
+            <input type="text" value={searchValue} onChange={this.changeHandler} />
+          </div>
+          <button type="submit">Search</button>
+        </form>
+        {fetchError ? <div className="data__result">{fetchError}</div> : null}
+      </div>
+    );
+  }
 }
 
 export default Search;
