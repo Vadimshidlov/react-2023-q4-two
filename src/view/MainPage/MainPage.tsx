@@ -14,7 +14,7 @@ export type MainPageState = {
 };
 
 class MainPage extends Component<object, MainPageState> {
-  swapiApi = SwapiService;
+  STAR_WARS_API = SwapiService;
 
   constructor(props: object) {
     super(props);
@@ -34,11 +34,12 @@ class MainPage extends Component<object, MainPageState> {
     const searchValueFromStorage = localStorage.getItem('searchValue');
 
     this.setState({ isLoading: true });
+
     if (!localStorage.getItem('searchValue')) {
-      const peopleData = await this.swapiApi.getAllPeoples();
+      const peopleData = await this.STAR_WARS_API.getAllPeoples();
       this.setState({ searchData: peopleData });
     } else if (searchValueFromStorage) {
-      const searchPeopleData = await this.swapiApi.searchPeoples(searchValueFromStorage);
+      const searchPeopleData = await this.STAR_WARS_API.searchPeoples(searchValueFromStorage);
       this.setState({ searchData: searchPeopleData });
     }
 
@@ -51,7 +52,7 @@ class MainPage extends Component<object, MainPageState> {
     const { searchValue } = this.state;
     localStorage.setItem('searchValue', searchValue);
     this.setState({ isLoading: true });
-    const searchPeopleData = await this.swapiApi.searchPeoples(searchValue);
+    const searchPeopleData = await this.STAR_WARS_API.searchPeoples(searchValue);
     this.setState({ isLoading: false });
     this.setState({ searchData: searchPeopleData, isLoading: false });
   };

@@ -21,7 +21,7 @@ class ErrorButton extends Component<object, State> {
     const { error } = this.state;
 
     if (error) {
-      throw Error('Ooops! Something ERROR!');
+      throw Error('Ooops! Something went wrong!');
     }
 
     return (
