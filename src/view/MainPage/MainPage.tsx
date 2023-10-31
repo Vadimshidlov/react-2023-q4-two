@@ -1,9 +1,8 @@
 import Search, { PeopleRequestType } from 'view/Search/Search';
-import { useEffect, useRef, useState } from 'react';
 import SearchItems from 'view/SearchItems/SearchItems';
-import SwapiService from 'services/SwapiService';
 import './MainPage.scss';
 import ErrorButton from 'view/ErrorButton/ErrorButton';
+import useFetching from 'hooks/useFetching';
 
 export type MainPageState = {
   searchValue: string;
@@ -13,41 +12,18 @@ export type MainPageState = {
 };
 
 export default function MainPage() {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
-  const [fetchError, setFetchError] = useState('');
-  const [searchData, setSearchData] = useState<PeopleRequestType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const STAR_WARS = useRef(SwapiService);
-
-  useEffect(() => {
-    const getData = async () => {
-      const searchValueFromStorage = localStorage.getItem('searchValue');
-
-      setIsLoading(true);
-      if (!localStorage.getItem('searchValue')) {
-        const peopleData = await STAR_WARS.current.getAllPeoples();
-        setSearchData(peopleData);
-      } else if (searchValueFromStorage) {
-        const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValueFromStorage);
-        setSearchData(searchPeopleData);
-      }
-
-      setIsLoading(false);
-    };
-
-    getData();
-  }, []);
-
-  const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-
-    localStorage.setItem('searchValue', searchValue);
-    const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValue);
-    setSearchData(searchPeopleData);
-
-    setIsLoading(false);
-  };
+  const {
+    pagesArray,
+    isLoading,
+    searchData,
+    searchFormHandler,
+    searchValue,
+    setSearchValue,
+    fetchError,
+    setFetchError,
+    currentPage,
+    setCurrentPage,
+  } = useFetching();
 
   return (
     <div className="main-page__container">
@@ -61,6 +37,23 @@ export default function MainPage() {
         setFetchError={setFetchError}
       />
       <SearchItems searchData={searchData} isLoading={isLoading} />
+
+      {isLoading ? null : (
+        <div className="page__container">
+          {pagesArray.map((page) => (
+            <button
+              type="button"
+              key={page}
+              className={currentPage === page ? 'page__number__active' : 'page__number'}
+              onClick={() => {
+                setCurrentPage(page);
+              }}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

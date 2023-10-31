@@ -16,4 +16,40 @@
   .main-page__logo {
     width: 100%;
   }
+
+  .page__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 30px;
+
+    .page__number {
+      width: 30px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid rgb(218, 231, 101);
+      padding: 5px;
+      font-size: 20px;
+      font-weight: 600;
+      font-family: serif;
+      cursor: pointer;
+    }
+
+    .page__number__active {
+      width: 30px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid red;
+      padding: 5px;
+      font-size: 20px;
+      font-weight: 600;
+      font-family: serif;
+      cursor: pointer;
+    }
+  }
 }
