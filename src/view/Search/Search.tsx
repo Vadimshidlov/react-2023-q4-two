@@ -36,29 +36,28 @@ export type SearchPropsType = {
   setSearchValue: (value: string) => void;
 };
 
-class Search extends React.Component<SearchPropsType> {
-  changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { setSearchValue, setFetchError } = this.props;
+export default function Search({
+  setSearchValue,
+  setFetchError,
+  searchFormHandler,
+  searchValue,
+  fetchError,
+}: SearchPropsType) {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
     setFetchError('');
   };
 
-  render() {
-    const { searchFormHandler, searchValue, fetchError } = this.props;
-
-    return (
-      <div className="search__container">
-        <form action="" className="search__form" onSubmit={searchFormHandler}>
-          <div className="search-input__container">
-            <SearchIcon />
-            <input type="text" value={searchValue} onChange={this.changeHandler} />
-          </div>
-          <button type="submit">Search</button>
-        </form>
-        {fetchError ? <div className="data__result">{fetchError}</div> : null}
-      </div>
-    );
-  }
+  return (
+    <div className="search__container">
+      <form action="" className="search__form" onSubmit={searchFormHandler}>
+        <div className="search-input__container">
+          <SearchIcon />
+          <input type="text" value={searchValue} onChange={changeHandler} />
+        </div>
+        <button type="submit">Search</button>
+      </form>
+      {fetchError ? <div className="data__result">{fetchError}</div> : null}
+    </div>
+  );
 }
-
-export default Search;

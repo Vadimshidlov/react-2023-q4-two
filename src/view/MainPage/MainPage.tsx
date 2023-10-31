@@ -1,5 +1,5 @@
 import Search, { PeopleRequestType } from 'view/Search/Search';
-import { Component, FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SearchItems from 'view/SearchItems/SearchItems';
 import SwapiService from 'services/SwapiService';
 import './MainPage.scss';
@@ -12,69 +12,55 @@ export type MainPageState = {
   isLoading: boolean;
 };
 
-class MainPage extends Component<object, MainPageState> {
-  STAR_WARS_API = SwapiService;
+export default function MainPage() {
+  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
+  const [fetchError, setFetchError] = useState('');
+  const [searchData, setSearchData] = useState<PeopleRequestType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const STAR_WARS = useRef(SwapiService);
 
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      searchValue: localStorage.getItem('searchValue') || '',
-      fetchError: '',
-      searchData: [],
-      isLoading: false,
+  useEffect(() => {
+    const getData = async () => {
+      const searchValueFromStorage = localStorage.getItem('searchValue');
+
+      setIsLoading(true);
+      if (!localStorage.getItem('searchValue')) {
+        const peopleData = await STAR_WARS.current.getAllPeoples();
+        setSearchData(peopleData);
+      } else if (searchValueFromStorage) {
+        const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValueFromStorage);
+        setSearchData(searchPeopleData);
+      }
+
+      setIsLoading(false);
     };
-  }
 
-  componentDidMount() {
-    this.getData();
-  }
+    getData();
+  }, []);
 
-  getData = async () => {
-    const searchValueFromStorage = localStorage.getItem('searchValue');
-
-    this.setState({ isLoading: true });
-
-    if (!localStorage.getItem('searchValue')) {
-      const peopleData = await this.STAR_WARS_API.getAllPeoples();
-      this.setState({ searchData: peopleData });
-    } else if (searchValueFromStorage) {
-      const searchPeopleData = await this.STAR_WARS_API.searchPeoples(searchValueFromStorage);
-      this.setState({ searchData: searchPeopleData });
-    }
-
-    this.setState({ isLoading: false });
-  };
-
-  searchFormHandler = async (event: FormEvent<HTMLFormElement>) => {
+  const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
-    const { searchValue } = this.state;
     localStorage.setItem('searchValue', searchValue);
-    this.setState({ isLoading: true });
-    const searchPeopleData = await this.STAR_WARS_API.searchPeoples(searchValue);
-    this.setState({ isLoading: false });
-    this.setState({ searchData: searchPeopleData, isLoading: false });
+    const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValue);
+    setSearchData(searchPeopleData);
+
+    setIsLoading(false);
   };
 
-  render() {
-    const { searchValue, fetchError } = this.state;
-    const { searchData, isLoading } = this.state;
-
-    return (
-      <div className="main-page__container">
-        <h2 className="page__title">Star Wars Heroes!!!</h2>
-        <ErrorButton />
-        <Search
-          searchFormHandler={this.searchFormHandler}
-          searchValue={searchValue}
-          setSearchValue={(value) => this.setState({ searchValue: value })}
-          fetchError={fetchError}
-          setFetchError={(error) => this.setState({ fetchError: error })}
-        />
-        <SearchItems searchData={searchData} isLoading={isLoading} />
-      </div>
-    );
-  }
+  return (
+    <div className="main-page__container">
+      <h2 className="page__title">Star Wars Heroes!!!</h2>
+      <ErrorButton />
+      <Search
+        searchFormHandler={searchFormHandler}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        fetchError={fetchError}
+        setFetchError={setFetchError}
+      />
+      <SearchItems searchData={searchData} isLoading={isLoading} />
+    </div>
+  );
 }
-
-export default MainPage;
