@@ -30,12 +30,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid rgb(218, 231, 101);
-      padding: 5px;
+      border: 1px solid rgb(123, 143, 230);
+      padding: 15px;
       font-size: 20px;
       font-weight: 600;
       font-family: serif;
       cursor: pointer;
+      background: transparent;
+      border-radius: 5px;
     }
 
     .page__number__active {
@@ -44,12 +46,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid red;
-      padding: 5px;
+      border: 1px solid black;
+      padding: 15px;
       font-size: 20px;
       font-weight: 600;
       font-family: serif;
       cursor: pointer;
+      background: transparent;
+      border-radius: 5px;
     }
   }
 }
