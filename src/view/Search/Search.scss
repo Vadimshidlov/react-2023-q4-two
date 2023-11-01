@@ -58,6 +58,18 @@
   padding: 10px;
 }
 
+.searchItems__container__double {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  padding: 10px;
+
+  .searchItems__heroes {
+  }
+
+  .searchItems__details {
+  }
+}
+
 .searchItems__container__center {
   display: flex;
   justify-content: center;

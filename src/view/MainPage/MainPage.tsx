@@ -2,7 +2,7 @@ import Search, { PeopleRequestType } from 'view/Search/Search';
 import SearchItems from 'view/SearchItems/SearchItems';
 import './MainPage.scss';
 import ErrorButton from 'view/ErrorButton/ErrorButton';
-import useFetching from 'Hooks/useFetching';
+import useFetching from 'hooks/useFetching';
 
 export type MainPageState = {
   searchValue: string;
@@ -36,7 +36,7 @@ export default function MainPage() {
         fetchError={fetchError}
         setFetchError={setFetchError}
       />
-      <SearchItems searchData={searchData} isLoading={isLoading} />
+      <SearchItems searchData={searchData} isLoading={isLoading} currentPage={currentPage} />
 
       {isLoading ? null : (
         <div className="page__container">
