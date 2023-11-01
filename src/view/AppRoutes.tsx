@@ -6,8 +6,8 @@ function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/search/:pageNumber" element={<MainPage />} />
         <Route path="/" element={<Navigate to="/search" />} />
+        <Route path="/search" element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );

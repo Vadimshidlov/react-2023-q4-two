@@ -3,6 +3,7 @@ import SwapiService from 'services/SwapiService';
 import getTotalPages from 'shared/utils/getTotalPages';
 import getPagesArray from 'shared/utils/getPagesArray';
 import { PeopleRequestType } from 'view/Search/Search';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 export default function useFetching() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,6 +13,10 @@ export default function useFetching() {
   const STAR_WARS = useRef(SwapiService);
   const [fetchError, setFetchError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const [urlParams, setUrlParams] = useSearchParams();
+  const [urlParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const getData = async () => {
     const searchValueFromStorage = localStorage.getItem('searchValue');
@@ -54,7 +59,11 @@ export default function useFetching() {
   useEffect(() => {
     console.log('Render');
 
+    urlParams.set('page', currentPage.toString());
+    navigate(`/search?${urlParams.toString()}`);
+
     getData();
+    // console.log(urlParams, 'urlParams');
   }, [currentPage]);
 
   const pagesArray = getPagesArray(totalPages);

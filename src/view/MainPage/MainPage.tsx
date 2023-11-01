@@ -2,7 +2,7 @@ import Search, { PeopleRequestType } from 'view/Search/Search';
 import SearchItems from 'view/SearchItems/SearchItems';
 import './MainPage.scss';
 import ErrorButton from 'view/ErrorButton/ErrorButton';
-import useFetching from 'hooks/useFetching';
+import useFetching from 'Hooks/useFetching';
 
 export type MainPageState = {
   searchValue: string;
