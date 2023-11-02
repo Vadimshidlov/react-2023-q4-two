@@ -1,7 +1,5 @@
 import { PeopleRequestType } from 'view/Search/Search';
 import './Hero.scss';
-import SwapiService from 'services/SwapiService';
-import { useRef } from 'react';
 
 export type HeroPropsType = {
   heroData: PeopleRequestType;
@@ -19,23 +17,17 @@ export default function Hero({
   setHeroNumber,
   heroIndex,
 }: HeroPropsType) {
-  const STAR_WARS_API = useRef(SwapiService);
-
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       className="hero__container"
-      onClick={async () => {
+      onClick={() => {
         if (showDetails) {
           setShowDetails(false);
           setHeroNumber(0);
 
           return;
         }
-
-        console.log('Show details');
-        const heroRequestData = await STAR_WARS_API.current.getSelectPeople(heroIndex + 1);
-        console.log(heroRequestData);
 
         setShowDetails(true);
         setHeroNumber(heroIndex);

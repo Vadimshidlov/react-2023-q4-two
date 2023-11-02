@@ -1,8 +1,10 @@
-import './DetailsComponent.scss';
-import useGetHeroData from 'hooks/useGetHeroData';
+import { useEffect, useRef, useState } from 'react';
+import { PeopleRequestType } from 'view/Search/Search';
+import SwapiService from 'services/SwapiService';
+import MyLoader from 'view/MyLoader/MyLoader';
 
 export type DetailsComponentPropsType = {
-  setShowDetails: React.Dispatch<boolean>;
+  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
   heroNumber: number;
 };
 
@@ -10,9 +12,28 @@ export default function DetailsComponent({
   setShowDetails,
   heroNumber,
 }: DetailsComponentPropsType) {
-  const { heroData } = useGetHeroData(heroNumber);
+  const [heroData, setHeroData] = useState<PeopleRequestType>(Object);
+  const [isLoading, setIsLoading] = useState(false);
 
-  return (
+  const STAR_WARS_API = useRef(SwapiService);
+
+  useEffect(() => {
+    const getData = async () => {
+      setIsLoading(true);
+
+      console.log('getData');
+      const result = await STAR_WARS_API.current.getSelectPeople(heroNumber);
+      console.log(result, 'result');
+      setHeroData(result);
+      setIsLoading(false);
+    };
+
+    getData();
+  }, [heroNumber]);
+
+  return isLoading || !heroData ? (
+    <MyLoader />
+  ) : (
     <div className="hero-details__container">
       <button
         type="button"

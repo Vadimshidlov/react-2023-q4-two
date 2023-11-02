@@ -27,7 +27,7 @@ export default function MainPage() {
 
   return (
     <div className="main-page__container">
-      <h2 className="page__title">Star Wars Heroes!!!</h2>
+      <h2 className="page__title">StarWars Heroes</h2>
       <ErrorButton />
       <Search
         searchFormHandler={searchFormHandler}

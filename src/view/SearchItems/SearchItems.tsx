@@ -4,7 +4,7 @@ import { PeopleRequestType } from 'view/Search/Search';
 import NoDataComponent from 'view/SearchItems/NoDataComponent';
 import { ReactNode, useState } from 'react';
 import getHeroNumber from 'shared/utils/getHeroNumber';
-import DetailsComponent from './DetailsComponent.1';
+import DetailsComponent from 'view/SearchItems/DetailsComponent';
 
 export type SearchItemsPropsType = {
   searchData: PeopleRequestType[] | undefined;

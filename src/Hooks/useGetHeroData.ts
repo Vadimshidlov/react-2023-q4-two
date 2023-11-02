@@ -7,6 +7,7 @@ export default function useGetHeroData(heroNumber: number) {
   const STAR_WARS_API = useRef(SwapiService);
 
   const getData = async () => {
+    console.log('getData');
     const result = await STAR_WARS_API.current.getSelectPeople(heroNumber);
     setHeroData(result);
   };
