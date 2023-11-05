@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import SwapiService from 'services/SwapiService';
 import getTotalPages from 'shared/utils/getTotalPages';

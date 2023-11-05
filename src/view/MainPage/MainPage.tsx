@@ -3,6 +3,8 @@ import SearchItems from 'view/SearchItems/SearchItems';
 import './MainPage.scss';
 import ErrorButton from 'view/ErrorButton/ErrorButton';
 import useFetching from 'hooks/useFetching';
+import Pagination from 'view/Pagination/Pagination';
+import { useState } from 'react';
 
 export type MainPageState = {
   searchValue: string;
@@ -25,9 +27,10 @@ export default function MainPage() {
     setCurrentPage,
   } = useFetching();
 
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+
   return (
     <div className="main-page__container">
-      <h2 className="page__title">StarWars Heroes</h2>
       <ErrorButton />
       <Search
         searchFormHandler={searchFormHandler}
@@ -36,24 +39,20 @@ export default function MainPage() {
         fetchError={fetchError}
         setFetchError={setFetchError}
       />
-      <SearchItems searchData={searchData} isLoading={isLoading} currentPage={currentPage} />
-
-      {isLoading ? null : (
-        <div className="page__container">
-          {pagesArray.map((page) => (
-            <button
-              type="button"
-              key={page}
-              className={currentPage === page ? 'page__number__active' : 'page__number'}
-              onClick={() => {
-                setCurrentPage(page);
-              }}
-            >
-              {page}
-            </button>
-          ))}
-        </div>
-      )}
+      <SearchItems
+        searchData={searchData}
+        isLoading={isLoading}
+        currentPage={currentPage}
+        showDetails={showDetails}
+        setShowDetails={setShowDetails}
+      />
+      <Pagination
+        currentPage={currentPage}
+        isLoading={isLoading}
+        pagesArray={pagesArray}
+        setCurrentPage={setCurrentPage}
+        setShowDetails={setShowDetails}
+      />
     </div>
   );
 }

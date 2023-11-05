@@ -10,14 +10,22 @@ export type SearchItemsPropsType = {
   searchData: PeopleRequestType[] | undefined;
   isLoading: boolean;
   currentPage: number;
+  showDetails: boolean;
+  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
-export default function SearchItems({ isLoading, searchData, currentPage }: SearchItemsPropsType) {
+export default function SearchItems({
+  isLoading,
+  searchData,
+  currentPage,
+  showDetails,
+  setShowDetails,
+}: SearchItemsPropsType) {
   let content: ReactNode;
 
   // const [showDetails, setShowDetails] = useState<PeopleRequestType | null>(null);
-  const [showDetails, setShowDetails] = useState<boolean>(false);
+  // const [showDetails, setShowDetails] = useState<boolean>(false);
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
 
   if (isLoading) {
