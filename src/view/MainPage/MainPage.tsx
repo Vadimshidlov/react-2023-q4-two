@@ -4,7 +4,6 @@ import './MainPage.scss';
 import ErrorButton from 'view/ErrorButton/ErrorButton';
 import useFetching from 'hooks/useFetching';
 import Pagination from 'view/Pagination/Pagination';
-import { useState } from 'react';
 
 export type MainPageState = {
   searchValue: string;
@@ -25,9 +24,9 @@ export default function MainPage() {
     setFetchError,
     currentPage,
     setCurrentPage,
+    showDetails,
+    setShowDetails,
   } = useFetching();
-
-  const [showDetails, setShowDetails] = useState<boolean>(false);
 
   return (
     <div className="main-page__container">

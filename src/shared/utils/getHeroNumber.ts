@@ -1,3 +1,5 @@
-export default function getHeroNumber(heroNumber: number, currentPage: number): number {
-  return heroNumber + 1 + (currentPage - 1) * 10;
+import { PeopleRequestType } from 'view/Search/Search';
+
+export default function getHeroNumber(heroData: PeopleRequestType): number {
+  return +heroData.url.split('/')[heroData.url.split('/').indexOf('people') + 1];
 }

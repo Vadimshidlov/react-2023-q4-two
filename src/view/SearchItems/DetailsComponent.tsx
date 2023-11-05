@@ -28,9 +28,8 @@ export default function DetailsComponent({
       urlParams.set('details', heroNumber.toString());
       navigate(`?${urlParams.toString()}`);
 
-      console.log('getData');
       const result = await STAR_WARS_API.current.getSelectPeople(heroNumber);
-      console.log(result, 'result');
+
       setHeroData(result);
       setIsLoading(false);
     };
@@ -46,7 +45,7 @@ export default function DetailsComponent({
   return (
     <div className="hero-details__container">
       {isLoading || !heroData ? (
-        <MyLoader />
+        <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>
           <button
@@ -62,6 +61,8 @@ export default function DetailsComponent({
           <div className="hero-details-info">
             <p>{`Number: ${heroNumber}`}</p>
             <p>{`Height: ${heroData.height}`}</p>
+            <p>{`Skin color: ${heroData.skin_color}`}</p>
+            <p>{`Eye color: ${heroData.eye_color}`}</p>
           </div>
         </>
       )}

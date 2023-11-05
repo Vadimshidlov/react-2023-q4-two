@@ -1,22 +1,22 @@
 import { PeopleRequestType } from 'view/Search/Search';
 import './Hero.scss';
+import getHeroNumber from 'shared/utils/getHeroNumber';
 
 export type HeroPropsType = {
   heroData: PeopleRequestType;
   showDetails: boolean;
   setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
   setHeroNumber: React.Dispatch<React.SetStateAction<number>>;
-  heroIndex: number;
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default function Hero({
   heroData,
   setShowDetails,
   showDetails,
   setHeroNumber,
-  heroIndex,
 }: HeroPropsType) {
+  const heroNum = getHeroNumber(heroData);
+
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
@@ -30,7 +30,7 @@ export default function Hero({
         }
 
         setShowDetails(true);
-        setHeroNumber(heroIndex);
+        setHeroNumber(heroNum);
       }}
       onKeyDown={() => console.log('Show details')}
     >

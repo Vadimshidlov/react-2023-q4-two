@@ -59,6 +59,7 @@
 }
 
 .searchItems__container__double {
+  position: relative;
   display: grid;
   grid-template-columns: 70% 30%;
   padding: 10px;
@@ -67,7 +68,13 @@
   }
 
   .hero-details__container {
-    position: relative;
+    // position: relative;
+  }
+
+  .loader__details {
+    position: fixed;
+    left: 85%;
+    top: 52%;
   }
 }
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import SwapiService from 'services/SwapiService';
 import getTotalPages from 'shared/utils/getTotalPages';
@@ -14,9 +13,8 @@ export default function useFetching() {
   const STAR_WARS = useRef(SwapiService);
   const [fetchError, setFetchError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [urlParams, setUrlParams] = useSearchParams();
-  const [urlParams] = useSearchParams();
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [urlParams, setUrlParams] = useSearchParams();
   const navigate = useNavigate();
 
   const getData = async () => {
@@ -48,6 +46,10 @@ export default function useFetching() {
     event.preventDefault();
     setIsLoading(true);
 
+    urlParams.delete('details');
+    setUrlParams(urlParams);
+    setShowDetails(false);
+
     localStorage.setItem('searchValue', searchValue);
     const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValue);
     setSearchData(searchPeopleData.results);
@@ -64,7 +66,6 @@ export default function useFetching() {
     navigate(`/search?${urlParams.toString()}`);
 
     getData();
-    // console.log(urlParams, 'urlParams');
   }, [currentPage]);
 
   const pagesArray = getPagesArray(totalPages);
@@ -82,5 +83,7 @@ export default function useFetching() {
     setFetchError,
     currentPage,
     setCurrentPage,
+    showDetails,
+    setShowDetails,
   };
 }

@@ -1,9 +1,12 @@
 import './MyLoader.scss';
 
-// eslint-disable-next-line react/prefer-stateless-function
-export default function MyLoader() {
+export type MyLoaderPropsType = {
+  stylesClassName: string;
+};
+
+export default function MyLoader({ stylesClassName }: MyLoaderPropsType) {
   return (
-    <div className="loader__container">
+    <div className={stylesClassName}>
       <p className="loader__title">Loading . . .</p>
       <div className="loader__items">
         <div className="loader-item-1" />
