@@ -3,6 +3,7 @@ import { PeopleRequestType } from 'view/Search/Search';
 import SwapiService from 'services/SwapiService';
 import MyLoader from 'view/MyLoader/MyLoader';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import './DetailsComponent.scss';
 
 export type DetailsComponentPropsType = {
   setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,6 +50,7 @@ export default function DetailsComponent({
       ) : (
         <>
           <button
+            className="hero-details__button"
             type="button"
             onClick={() => {
               setShowDetails(false);
@@ -56,8 +58,11 @@ export default function DetailsComponent({
           >
             Close
           </button>
-          <h2>{`Number: ${heroNumber}`}</h2>
-          <h2>{heroData.height}</h2>
+
+          <div className="hero-details-info">
+            <p>{`Number: ${heroNumber}`}</p>
+            <p>{`Height: ${heroData.height}`}</p>
+          </div>
         </>
       )}
     </div>
