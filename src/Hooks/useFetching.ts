@@ -23,7 +23,6 @@ export default function useFetching() {
     setIsLoading(true);
     if (!localStorage.getItem('searchValue')) {
       const peopleData = await STAR_WARS.current.getAllPeoples(currentPage);
-      console.log(peopleData);
 
       setTotalPages(getTotalPages(peopleData.count));
 
@@ -33,7 +32,6 @@ export default function useFetching() {
         searchValueFromStorage,
         currentPage
       );
-      console.log(searchPeopleData);
       setTotalPages(getTotalPages(searchPeopleData.count));
 
       setSearchData(searchPeopleData.results);
@@ -60,8 +58,6 @@ export default function useFetching() {
   };
 
   useEffect(() => {
-    console.log('Render');
-
     urlParams.set('page', currentPage.toString());
     navigate(`/search?${urlParams.toString()}`);
 

@@ -25,6 +25,12 @@
   }
 
   .hero-details-info {
+    p:first-child {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    padding-top: 15%;
     display: flex;
     flex-direction: column;
     row-gap: 10px;

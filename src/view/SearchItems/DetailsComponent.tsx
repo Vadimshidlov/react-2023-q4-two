@@ -59,10 +59,13 @@ export default function DetailsComponent({
           </button>
 
           <div className="hero-details-info">
-            <p>{`Number: ${heroNumber}`}</p>
-            <p>{`Height: ${heroData.height}`}</p>
+            <p>{`${heroData.name}`}</p>
+            <p>{`Hero ID: ${heroNumber}`}</p>
+            <p>{`Height: ${heroData.height} sm`}</p>
             <p>{`Skin color: ${heroData.skin_color}`}</p>
             <p>{`Eye color: ${heroData.eye_color}`}</p>
+            <p>{`Hair color: ${heroData.hair_color}`}</p>
+            <p>{`Mass: ${heroData.mass} kg`}</p>
           </div>
         </>
       )}
