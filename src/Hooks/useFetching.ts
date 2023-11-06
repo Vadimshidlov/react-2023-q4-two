@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import SwapiService from 'services/SwapiService';
 import getTotalPages from 'shared/utils/getTotalPages';
 import getPagesArray from 'shared/utils/getPagesArray';
-import { PeopleRequestType } from 'view/Search/Search';
+import { PeopleRequestType } from 'components/Search/Search';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 export default function useFetching() {

@@ -1,13 +1,6 @@
-import { PeopleRequestType } from 'view/Search/Search';
 import './Hero.scss';
 import getHeroNumber from 'shared/utils/getHeroNumber';
-
-export type HeroPropsType = {
-  heroData: PeopleRequestType;
-  showDetails: boolean;
-  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setHeroNumber: React.Dispatch<React.SetStateAction<number>>;
-};
+import { HeroPropsType } from 'components/Hero/types';
 
 export default function Hero({
   heroData,

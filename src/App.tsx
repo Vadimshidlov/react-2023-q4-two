@@ -1,7 +1,7 @@
 import './App.css';
-import ErrorBoundary from 'view/ErrorBoundary/ErrorBoundary';
-// import MainPage from './view/MainPage/MainPage';
-import AppRoutes from 'view/AppRoutes';
+import ErrorBoundary from 'components/ErrorBoundary/ErrorBoundary';
+// import MainPage from './components/MainPage/MainPage';
+import AppRoutes from 'components/AppRoutes';
 
 export default function App() {
   return (

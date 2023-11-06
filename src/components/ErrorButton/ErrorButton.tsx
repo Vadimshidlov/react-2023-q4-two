@@ -1,11 +1,8 @@
 import { Component } from 'react';
 import './ErrorButton.scss';
+import { ErrorButtonState } from 'components/ErrorButton/types';
 
-interface State {
-  error: boolean;
-}
-
-class ErrorButton extends Component<object, State> {
+class ErrorButton extends Component<object, ErrorButtonState> {
   constructor(props: object) {
     super(props);
     this.state = {

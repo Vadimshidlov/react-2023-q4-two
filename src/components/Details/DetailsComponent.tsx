@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { PeopleRequestType } from 'view/Search/Search';
 import SwapiService from 'services/SwapiService';
-import MyLoader from 'view/MyLoader/MyLoader';
+import MyLoader from 'components/MyLoader/MyLoader';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './DetailsComponent.scss';
-
-export type DetailsComponentPropsType = {
-  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  heroNumber: number;
-};
+import 'components/Details/DetailsComponent.scss';
+import { PeopleRequestType } from 'components/Search/types';
+import { DetailsComponentPropsType } from 'components/Details/types';
 
 export default function DetailsComponent({
   setShowDetails,

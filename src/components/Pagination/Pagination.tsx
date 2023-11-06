@@ -1,13 +1,5 @@
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-export type PaginationPropsType = {
-  isLoading: boolean;
-  pagesArray: number[];
-  currentPage: number;
-  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentPage: (value: React.SetStateAction<number>) => void;
-};
+import { PaginationPropsType } from 'components/Pagination/types';
 
 export default function Pagination({
   isLoading,

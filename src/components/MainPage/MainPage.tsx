@@ -1,16 +1,9 @@
-import Search, { PeopleRequestType } from 'view/Search/Search';
-import SearchItems from 'view/SearchItems/SearchItems';
+import Search from 'components/Search/Search';
+import SearchItems from 'components/SearchItems/SearchItems';
 import './MainPage.scss';
-import ErrorButton from 'view/ErrorButton/ErrorButton';
+import ErrorButton from 'components/ErrorButton/ErrorButton';
 import useFetching from 'hooks/useFetching';
-import Pagination from 'view/Pagination/Pagination';
-
-export type MainPageState = {
-  searchValue: string;
-  fetchError: string;
-  searchData: PeopleRequestType[];
-  isLoading: boolean;
-};
+import Pagination from 'components/Pagination/Pagination';
 
 export default function MainPage() {
   const {

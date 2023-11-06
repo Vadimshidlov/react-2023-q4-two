@@ -1,9 +1,9 @@
-import Hero from 'view/Hero/Hero';
-import MyLoader from 'view/MyLoader/MyLoader';
-import { PeopleRequestType } from 'view/Search/Search';
-import NoDataComponent from 'view/SearchItems/NoDataComponent';
+import Hero from 'components/Hero/Hero';
+import MyLoader from 'components/MyLoader/MyLoader';
+import NoDataComponent from 'components/SearchItems/NoDataComponent';
 import { ReactNode, useState } from 'react';
-import DetailsComponent from 'view/SearchItems/DetailsComponent';
+import DetailsComponent from 'components/Details/DetailsComponent';
+import { PeopleRequestType } from 'components/Search/types';
 
 export type SearchItemsPropsType = {
   searchData: PeopleRequestType[] | undefined;

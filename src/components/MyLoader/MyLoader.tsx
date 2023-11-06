@@ -1,8 +1,5 @@
 import './MyLoader.scss';
-
-export type MyLoaderPropsType = {
-  stylesClassName: string;
-};
+import { MyLoaderPropsType } from 'components/MyLoader/types';
 
 export default function MyLoader({ stylesClassName }: MyLoaderPropsType) {
   return (
