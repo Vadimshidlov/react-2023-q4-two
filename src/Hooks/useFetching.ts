@@ -2,31 +2,29 @@ import { useEffect, useRef, useState } from 'react';
 import SwapiService from 'services/SwapiService';
 import getTotalPages from 'shared/utils/getTotalPages';
 import getPagesArray from 'shared/utils/getPagesArray';
-import { PeopleRequestType } from 'components/Search/Search';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useContextData } from 'context-store';
 
 export default function useFetching() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { contextData, setContextData } = useContextData();
   const [totalPages, setTotalPages] = useState(0);
-  const [searchData, setSearchData] = useState<PeopleRequestType[]>([]);
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('searchValue') || '');
   const STAR_WARS = useRef(SwapiService);
   const [fetchError, setFetchError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [showDetails, setShowDetails] = useState<boolean>(false);
   const [urlParams, setUrlParams] = useSearchParams();
   const navigate = useNavigate();
 
   const getData = async () => {
     const searchValueFromStorage = localStorage.getItem('searchValue');
 
-    setIsLoading(true);
+    setContextData((prevState) => ({ ...prevState, isLoading: true }));
+
     if (!localStorage.getItem('searchValue')) {
       const peopleData = await STAR_WARS.current.getAllPeoples(currentPage);
 
       setTotalPages(getTotalPages(peopleData.count));
 
-      setSearchData(peopleData.results);
+      setContextData((prevState) => ({ ...prevState, searchData: peopleData.results }));
     } else if (searchValueFromStorage) {
       const searchPeopleData = await STAR_WARS.current.searchPeoples(
         searchValueFromStorage,
@@ -34,27 +32,29 @@ export default function useFetching() {
       );
       setTotalPages(getTotalPages(searchPeopleData.count));
 
-      setSearchData(searchPeopleData.results);
+      setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
     }
 
-    setIsLoading(false);
+    setContextData((prevState) => ({ ...prevState, isLoading: false }));
   };
 
   const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
+    setContextData((prevState) => ({ ...prevState, isLoading: true }));
 
     urlParams.delete('details');
     setUrlParams(urlParams);
-    setShowDetails(false);
+    // setShowDetails(false);
+    setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
 
-    localStorage.setItem('searchValue', searchValue);
-    const searchPeopleData = await STAR_WARS.current.searchPeoples(searchValue);
-    setSearchData(searchPeopleData.results);
+    localStorage.setItem('searchValue', contextData.searchValue);
+    const searchPeopleData = await STAR_WARS.current.searchPeoples(contextData.searchValue);
+    setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
+
     setCurrentPage(1);
     setTotalPages(getTotalPages(searchPeopleData.count));
 
-    setIsLoading(false);
+    setContextData((prevState) => ({ ...prevState, isLoading: false }));
   };
 
   useEffect(() => {
@@ -68,18 +68,12 @@ export default function useFetching() {
 
   return {
     getData,
-    isLoading,
     totalPages,
-    searchData,
     pagesArray,
-    searchValue,
-    setSearchValue,
     searchFormHandler,
     fetchError,
     setFetchError,
     currentPage,
     setCurrentPage,
-    showDetails,
-    setShowDetails,
   };
 }

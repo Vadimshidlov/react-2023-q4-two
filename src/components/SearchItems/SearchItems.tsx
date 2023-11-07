@@ -3,49 +3,37 @@ import MyLoader from 'components/MyLoader/MyLoader';
 import NoDataComponent from 'components/SearchItems/NoDataComponent';
 import { ReactNode, useState } from 'react';
 import DetailsComponent from 'components/Details/DetailsComponent';
-import { PeopleRequestType } from 'components/Search/types';
+import { useContextData } from 'context-store';
 
-export type SearchItemsPropsType = {
-  searchData: PeopleRequestType[] | undefined;
-  isLoading: boolean;
-  currentPage: number;
-  showDetails: boolean;
-  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
-};
+// export type SearchItemsPropsType = {
+//   currentPage: number;
+// };
 
-export default function SearchItems({
-  isLoading,
-  searchData,
-  showDetails,
-  setShowDetails,
-}: SearchItemsPropsType) {
+export default function SearchItems() {
   let content: ReactNode;
 
+  const { contextData } = useContextData();
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
 
-  if (isLoading) {
+  if (contextData.isLoading) {
     content = <MyLoader stylesClassName="loader__container" />;
-  } else if (searchData?.length === 0) {
+  } else if (contextData.searchData?.length === 0) {
     content = <NoDataComponent />;
   } else {
-    content = searchData?.map((searchItem) => (
-      <Hero
-        key={searchItem.name}
-        heroData={searchItem}
-        setShowDetails={setShowDetails}
-        showDetails={showDetails}
-        setHeroNumber={setSelectHeroNumber}
-      />
+    content = contextData.searchData?.map((searchItem) => (
+      <Hero key={searchItem.name} heroData={searchItem} setHeroNumber={setSelectHeroNumber} />
     ));
   }
 
   return (
-    <div className={showDetails ? 'searchItems__container__double' : 'searchItems__container'}>
+    <div
+      className={
+        contextData.isShowDetails ? 'searchItems__container__double' : 'searchItems__container'
+      }
+    >
       <div className="searchItems__heroes">{content}</div>
 
-      {showDetails && (
-        <DetailsComponent setShowDetails={setShowDetails} heroNumber={selectHeroNumber} />
-      )}
+      {contextData.isShowDetails && <DetailsComponent heroNumber={selectHeroNumber} />}
     </div>
   );
 }

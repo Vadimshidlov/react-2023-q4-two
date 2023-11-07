@@ -2,16 +2,13 @@ import React from 'react';
 import './Search.scss';
 import SearchIcon from 'components/Search/SearchIcon';
 import { SearchPropsType } from 'components/Search/types';
+import { useContextData } from 'context-store';
 
-export default function Search({
-  setSearchValue,
-  setFetchError,
-  searchFormHandler,
-  searchValue,
-  fetchError,
-}: SearchPropsType) {
+export default function Search({ setFetchError, searchFormHandler, fetchError }: SearchPropsType) {
+  const { contextData, setContextData } = useContextData();
+
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(event.target.value);
+    setContextData((prevState) => ({ ...prevState, searchValue: event.target.value }));
     setFetchError('');
   };
 
@@ -20,7 +17,7 @@ export default function Search({
       <form action="" className="search__form" onSubmit={searchFormHandler}>
         <div className="search-input__container">
           <SearchIcon />
-          <input type="text" value={searchValue} onChange={changeHandler} />
+          <input type="text" value={contextData.searchValue} onChange={changeHandler} />
         </div>
         <button type="submit">Search</button>
       </form>

@@ -1,16 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
 import { PaginationPropsType } from 'components/Pagination/types';
+import { useContextData } from 'context-store';
 
 export default function Pagination({
-  isLoading,
   pagesArray,
   currentPage,
   setCurrentPage,
-  setShowDetails,
 }: PaginationPropsType) {
+  const { contextData, setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
 
-  return isLoading ? null : (
+  return contextData.isLoading ? null : (
     <div className="page__container">
       {pagesArray.map((page) => (
         <button
@@ -20,7 +20,8 @@ export default function Pagination({
           onClick={() => {
             urlParams.delete('details');
             setUrlParams(urlParams);
-            setShowDetails(false);
+            // setShowDetails(false);
+            setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
             setCurrentPage(page);
           }}
         >

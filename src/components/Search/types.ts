@@ -26,8 +26,6 @@ export type PeoplesRequestType = {
 
 export type SearchPropsType = {
   searchFormHandler: (event: React.FormEvent<HTMLFormElement>) => void;
-  searchValue: string;
   fetchError: string;
   setFetchError: (value: string) => void;
-  setSearchValue: (value: string) => void;
 };

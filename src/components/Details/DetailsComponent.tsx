@@ -5,13 +5,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import 'components/Details/DetailsComponent.scss';
 import { PeopleRequestType } from 'components/Search/types';
 import { DetailsComponentPropsType } from 'components/Details/types';
+import { useContextData } from 'context-store';
 
-export default function DetailsComponent({
-  setShowDetails,
-  heroNumber,
-}: DetailsComponentPropsType) {
+export default function DetailsComponent({ heroNumber }: DetailsComponentPropsType) {
   const [heroData, setHeroData] = useState<PeopleRequestType>(Object);
-  const [isLoading, setIsLoading] = useState(false);
+  const { contextData, setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -19,7 +17,7 @@ export default function DetailsComponent({
 
   useEffect(() => {
     const getData = async () => {
-      setIsLoading(true);
+      setContextData((prevState) => ({ ...prevState, isLoadingDetails: true }));
 
       urlParams.set('details', heroNumber.toString());
       navigate(`?${urlParams.toString()}`);
@@ -27,7 +25,8 @@ export default function DetailsComponent({
       const result = await STAR_WARS_API.current.getSelectPeople(heroNumber);
 
       setHeroData(result);
-      setIsLoading(false);
+
+      setContextData((prevState) => ({ ...prevState, isLoadingDetails: false }));
     };
 
     getData();
@@ -40,7 +39,7 @@ export default function DetailsComponent({
 
   return (
     <div className="hero-details__container">
-      {isLoading || !heroData ? (
+      {contextData.isLoadingDetails || !heroData ? (
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>
@@ -48,7 +47,8 @@ export default function DetailsComponent({
             className="hero-details__button"
             type="button"
             onClick={() => {
-              setShowDetails(false);
+              // setShowDetails(false);
+              setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
             }}
           >
             Close
