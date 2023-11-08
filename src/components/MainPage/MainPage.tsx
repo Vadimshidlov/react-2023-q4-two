@@ -1,10 +1,10 @@
 /* eslint-disable operator-linebreak */
-import Search from 'components/Search/Search';
-import SearchItems from 'components/SearchItems/SearchItems';
 import './MainPage.scss';
-import ErrorButton from 'components/ErrorButton/ErrorButton';
-import useFetching from 'hooks/useFetching';
-import Pagination from 'components/Pagination/Pagination';
+import useFetching from '@/hooks/useFetching.ts';
+import ErrorButton from '@/components/ErrorButton/ErrorButton.tsx';
+import Search from '@/components/Search/Search.tsx';
+import SearchItems from '@/components/SearchItems/SearchItems.tsx';
+import Pagination from '@/components/Pagination/Pagination.tsx';
 
 export default function MainPage() {
   // eslint-disable-next-line object-curly-newline

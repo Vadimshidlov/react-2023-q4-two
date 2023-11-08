@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import SwapiService from 'services/SwapiService';
-import MyLoader from 'components/MyLoader/MyLoader';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import 'components/Details/DetailsComponent.scss';
-import { PeopleRequestType } from 'components/Search/types';
-import { DetailsComponentPropsType } from 'components/Details/types';
-import { useContextData } from 'context-store';
+import './DetailsComponent.scss';
+import { DetailsComponentPropsType } from '@/components/Details/types.ts';
+import { PeopleRequestType } from '@/components/Search/types.ts';
+import { useContextData } from '@/context-store.tsx';
+import SwapiService from '@/services/SwapiService.ts';
+import MyLoader from '@/components/MyLoader/MyLoader.tsx';
 
 export default function DetailsComponent({ heroNumber }: DetailsComponentPropsType) {
   const [heroData, setHeroData] = useState<PeopleRequestType>(Object);
@@ -40,6 +40,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
   return (
     <div className="hero-details__container">
       {contextData.isLoadingDetails || !heroData ? (
+        // eslint-disable-next-line react/jsx-no-undef
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import SwapiService from 'services/SwapiService';
-import { PeopleRequestType } from 'components/Search/Search';
+import { PeopleRequestType } from '@/components/Search/types.ts';
+import SwapiService from '@/services/SwapiService.ts';
 
 export default function useGetHeroData(heroNumber: number) {
   const [heroData, setHeroData] = useState<PeopleRequestType>(Object);

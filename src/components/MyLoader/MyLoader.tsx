@@ -1,5 +1,5 @@
 import './MyLoader.scss';
-import { MyLoaderPropsType } from 'components/MyLoader/types';
+import { MyLoaderPropsType } from '@/components/MyLoader/types.ts';
 
 export default function MyLoader({ stylesClassName }: MyLoaderPropsType) {
   return (

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import SwapiService from 'services/SwapiService';
-import getTotalPages from 'shared/utils/getTotalPages';
-import getPagesArray from 'shared/utils/getPagesArray';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useContextData } from 'context-store';
+import { useContextData } from '@/context-store.tsx';
+import SwapiService from '@/services/SwapiService.ts';
+import getTotalPages from '@/shared/utils/getTotalPages.ts';
+import getPagesArray from '@/shared/utils/getPagesArray.ts';
 
 export default function useFetching() {
   const { contextData, setContextData } = useContextData();

@@ -1,9 +1,9 @@
-import Hero from 'components/Hero/Hero';
-import MyLoader from 'components/MyLoader/MyLoader';
-import NoDataComponent from 'components/SearchItems/NoDataComponent';
 import { ReactNode, useState } from 'react';
-import DetailsComponent from 'components/Details/DetailsComponent';
-import { useContextData } from 'context-store';
+import { useContextData } from '@/context-store.tsx';
+import MyLoader from '@/components/MyLoader/MyLoader.tsx';
+import NoDataComponent from '@/components/SearchItems/NoDataComponent.tsx';
+import Hero from '@/components/Hero/Hero.tsx';
+import DetailsComponent from '@/components/Details/DetailsComponent.tsx';
 
 // export type SearchItemsPropsType = {
 //   currentPage: number;

@@ -1,7 +1,7 @@
 import './Hero.scss';
-import getHeroNumber from 'shared/utils/getHeroNumber';
-import { HeroPropsType } from 'components/Hero/types';
-import { useContextData } from 'context-store';
+import { HeroPropsType } from '@/components/Hero/types.ts';
+import getHeroNumber from '@/shared/utils/getHeroNumber.ts';
+import { useContextData } from '@/context-store.tsx';
 
 export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
   const heroNum = getHeroNumber(heroData);

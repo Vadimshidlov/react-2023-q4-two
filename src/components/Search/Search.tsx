@@ -1,8 +1,8 @@
 import React from 'react';
 import './Search.scss';
-import SearchIcon from 'components/Search/SearchIcon';
-import { SearchPropsType } from 'components/Search/types';
-import { useContextData } from 'context-store';
+import { useContextData } from '@/context-store.tsx';
+import { SearchPropsType } from '@/components/Search/types.ts';
+import SearchIcon from '@/components/Search/SearchIcon.tsx';
 
 export default function Search({ setFetchError, searchFormHandler, fetchError }: SearchPropsType) {
   const { contextData, setContextData } = useContextData();

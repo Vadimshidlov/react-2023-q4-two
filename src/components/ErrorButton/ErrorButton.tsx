@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import './ErrorButton.scss';
-import { ErrorButtonState } from 'components/ErrorButton/types';
+import { ErrorButtonState } from '@/components/ErrorButton/types.ts';
 
 class ErrorButton extends Component<object, ErrorButtonState> {
   constructor(props: object) {

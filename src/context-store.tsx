@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { PeopleRequestType } from 'components/Search/types';
+import React, { createContext, useMemo, useState } from 'react';
+import { PeopleRequestType } from '@/components/Search/types.ts';
 
 export type ContextDataStorePropsType = { children: React.ReactNode };
 
@@ -17,7 +17,7 @@ export type AuthContextType = {
   setContextData: React.Dispatch<React.SetStateAction<ContextDataType>>;
 };
 
-export const ContextDataStore = React.createContext<AuthContextType | null>(null);
+export const ContextDataStore = createContext<AuthContextType | null>(null);
 
 function ContextDataStoreProvider({ children }: ContextDataStorePropsType) {
   const [contextData, setContextData] = useState<ContextDataType>({

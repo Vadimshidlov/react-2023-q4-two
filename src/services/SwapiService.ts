@@ -1,5 +1,5 @@
-import AxiosApiService from 'services/AxiosApiService';
-import { PeopleRequestType, PeoplesRequestType } from 'components/Search/Search';
+import AxiosApiService from '@/services/AxiosApiService.ts';
+import { PeopleRequestType, PeoplesRequestType } from '@/components/Search/types.ts';
 
 class SwapiService {
   private readonly AXIOS_API = AxiosApiService;

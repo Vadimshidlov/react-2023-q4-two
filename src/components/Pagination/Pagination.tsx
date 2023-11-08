@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-import { PaginationPropsType } from 'components/Pagination/types';
-import { useContextData } from 'context-store';
+import { useContextData } from '@/context-store.tsx';
+import { PaginationPropsType } from '@/components/Pagination/types.ts';
 
 export default function Pagination({
   pagesArray,
