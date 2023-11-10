@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import React, { useContext } from 'react';
+import { render } from '../../__tests__/test-utils';
 import { PeopleRequestType } from '@/components/Search/types.ts';
-import { ContextDataStore, ContextDataType } from '@/context-store.tsx';
+import { ContextDataType } from '@/context-store.tsx';
 import SearchItems from '@/components/SearchItems/SearchItems.tsx';
+import * as AppContext from '@/context-store.tsx';
 
 jest.mock('@/context-store.tsx');
 
@@ -254,21 +254,18 @@ export type PropsType = {
 };
 
 test('Renders the main page', () => {
-  const wrapper = ({ children }: PropsType) => (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <ContextDataStore.Provider value={{ contextData: mockContextValue, setContextData: () => {} }}>
-      {(() => {
-        const context = useContext(ContextDataStore);
-        console.log(context);
-        return <h1>Hello</h1>;
-      })()}
-      {children}
-    </ContextDataStore.Provider>
-  );
+  const contextValue = {
+    contextData: mockContextValue,
+    setContextData: () => {},
+  };
 
-  const { getAllByText } = render(<SearchItems />, { wrapper });
+  jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
 
-  const heroes = getAllByText('Gender');
+  const { getByText } = render(<SearchItems />, {
+    value: contextValue,
+  });
+
+  const heroes = getByText('Luke Skywalker');
 
   expect(heroes).toBeInTheDocument();
 });

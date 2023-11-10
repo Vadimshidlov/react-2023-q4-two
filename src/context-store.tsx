@@ -17,7 +17,7 @@ export type AuthContextType = {
   setContextData: React.Dispatch<React.SetStateAction<ContextDataType>>;
 };
 
-export const ContextDataStore = createContext<AuthContextType | null>(null);
+export const ContextDataStore = createContext<AuthContextType | undefined>(undefined);
 
 function ContextDataStoreProvider({ children }: ContextDataStorePropsType) {
   const [contextData, setContextData] = useState<ContextDataType>({
