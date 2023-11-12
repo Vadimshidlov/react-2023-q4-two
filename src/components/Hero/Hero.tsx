@@ -8,19 +8,17 @@ export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
   const { contextData, setContextData } = useContextData();
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <li
       className="hero__container"
       onClick={() => {
         if (contextData.isShowDetails) {
-          // setShowDetails(false);
           setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
           setHeroNumber(0);
 
           return;
         }
 
-        // setShowDetails(true);
         setContextData((prevState) => ({ ...prevState, isShowDetails: true }));
 
         setHeroNumber(heroNum);
@@ -30,6 +28,6 @@ export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
       <h3 className="hero__title">{heroData.name}</h3>
       <p className="hero__item-text">{`Birthday date: ${heroData.birth_year}`}</p>
       <p className="hero__item-text">{`Gender: ${heroData.gender}`}</p>
-    </div>
+    </li>
   );
 }

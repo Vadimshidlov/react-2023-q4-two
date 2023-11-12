@@ -14,6 +14,7 @@ export default function SearchItems() {
 
   const { contextData } = useContextData();
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
+  console.log(contextData.searchData);
 
   if (contextData.isLoading) {
     content = <MyLoader stylesClassName="loader__container" />;
@@ -31,7 +32,7 @@ export default function SearchItems() {
         contextData.isShowDetails ? 'searchItems__container__double' : 'searchItems__container'
       }
     >
-      <div className="searchItems__heroes">{content}</div>
+      <ul className="searchItems__heroes">{content}</ul>
 
       {contextData.isShowDetails && <DetailsComponent heroNumber={selectHeroNumber} />}
     </div>

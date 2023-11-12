@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render } from '../../__tests__/test-utils';
+import { render, screen } from '@/components/rtl-utils.tsx';
 import { PeopleRequestType } from '@/components/Search/types.ts';
 import { ContextDataType } from '@/context-store.tsx';
 import SearchItems from '@/components/SearchItems/SearchItems.tsx';
@@ -7,7 +7,7 @@ import * as AppContext from '@/context-store.tsx';
 
 jest.mock('@/context-store.tsx');
 
-const mockResult: PeopleRequestType[] = [
+export const mockResult: PeopleRequestType[] = [
   {
     name: 'Luke Skywalker',
     height: '172',
@@ -240,7 +240,7 @@ const mockResult: PeopleRequestType[] = [
   },
 ];
 
-const mockContextValue: ContextDataType = {
+export const mockContextValue: ContextDataType = {
   searchData: mockResult,
   searchValue: '',
   currentPage: 1,
@@ -249,23 +249,101 @@ const mockContextValue: ContextDataType = {
   isShowDetails: false,
 };
 
-export type PropsType = {
-  children: React.ReactNode;
+export const mockEmptyContextValue: ContextDataType = {
+  searchData: [],
+  searchValue: '',
+  currentPage: 1,
+  isLoading: false,
+  isLoadingDetails: false,
+  isShowDetails: false,
 };
 
-test('Renders the main page', () => {
-  const contextValue = {
-    contextData: mockContextValue,
-    setContextData: () => {},
-  };
+export const mockFirstItemContextValue: ContextDataType = {
+  searchData: [
+    {
+      name: 'Luke Skywalker',
+      height: '172',
+      mass: '77',
+      hair_color: 'blond',
+      skin_color: 'fair',
+      eye_color: 'blue',
+      birth_year: '19BBY',
+      gender: 'male',
+      homeworld: 'https://swapi.dev/api/planets/1/',
+      films: [
+        'https://swapi.dev/api/films/1/',
+        'https://swapi.dev/api/films/2/',
+        'https://swapi.dev/api/films/3/',
+        'https://swapi.dev/api/films/6/',
+      ],
+      species: [],
+      vehicles: ['https://swapi.dev/api/vehicles/14/', 'https://swapi.dev/api/vehicles/30/'],
+      starships: ['https://swapi.dev/api/starships/12/', 'https://swapi.dev/api/starships/22/'],
+      created: '2014-12-09T13:50:51.644000Z',
+      edited: '2014-12-20T21:17:56.891000Z',
+      url: 'https://swapi.dev/api/people/1/',
+    },
+  ],
+  searchValue: '',
+  currentPage: 1,
+  isLoading: false,
+  isLoadingDetails: false,
+  isShowDetails: false,
+};
 
-  jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
-
-  const { getByText } = render(<SearchItems />, {
-    value: contextValue,
+describe('SearchItems component tests', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
-  const heroes = getByText('Luke Skywalker');
+  test('<SearchItems/>', () => {
+    const contextValue = {
+      contextData: mockContextValue,
+      setContextData: () => {},
+    };
 
-  expect(heroes).toBeInTheDocument();
+    jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+
+    const { getByText } = render(<SearchItems />, {
+      value: contextValue,
+    });
+
+    const hero = getByText('Luke Skywalker');
+
+    expect(hero).toBeInTheDocument();
+  });
+
+  test('SearchItems has 10 child elements', () => {
+    const contextValue = {
+      contextData: mockContextValue,
+      setContextData: () => {},
+    };
+
+    jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+
+    render(<SearchItems />, {
+      value: contextValue,
+    });
+
+    expect(screen.getByRole('list')).toBeInTheDocument();
+
+    const heroesContainer = screen.getAllByText(/Gender:/);
+
+    expect(heroesContainer).toHaveLength(10);
+  });
+
+  test('Correct message is displayed if no cards are present.', () => {
+    const contextValue = {
+      contextData: mockEmptyContextValue,
+      setContextData: () => {},
+    };
+
+    jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+
+    render(<SearchItems />, {
+      value: contextValue,
+    });
+
+    expect(screen.getByText('Sad news... Heroes are not found')).toBeInTheDocument();
+  });
 });
