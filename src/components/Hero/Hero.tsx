@@ -24,6 +24,7 @@ export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
         setHeroNumber(heroNum);
       }}
       onKeyDown={() => console.log('Show details')}
+      data-testid={`hero_id_${heroNum}`}
     >
       <h3 className="hero__title">{heroData.name}</h3>
       <p className="hero__item-text">{`Birthday date: ${heroData.birth_year}`}</p>

@@ -14,7 +14,6 @@ export default function SearchItems() {
 
   const { contextData } = useContextData();
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
-  console.log(contextData.searchData);
 
   if (contextData.isLoading) {
     content = <MyLoader stylesClassName="loader__container" />;
@@ -22,7 +21,12 @@ export default function SearchItems() {
     content = <NoDataComponent />;
   } else {
     content = contextData.searchData?.map((searchItem) => (
-      <Hero key={searchItem.name} heroData={searchItem} setHeroNumber={setSelectHeroNumber} />
+      <Hero
+        data-test
+        key={searchItem.name}
+        heroData={searchItem}
+        setHeroNumber={setSelectHeroNumber}
+      />
     ));
   }
 

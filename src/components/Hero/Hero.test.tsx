@@ -1,70 +1,65 @@
-// // import { userEvent } from '@testing-library/user-event';
-// import * as AppContext from '@/context-store.tsx';
-// import { render } from '@/components/rtl-utils.tsx';
-// import {
-//   mockContextValue,
-//   mockFirstItemContextValue,
-// } from '@/components/SearchItems/SearchItems.test.tsx';
-// import Hero from '@/components/Hero/Hero.tsx';
-// import * as getHeroNumberObject from '@/shared/utils/getHeroNumber.ts';
-// import App from '@/App.tsx';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import * as AppContext from '@/context-store.tsx';
+import { render } from '@/components/rtl-utils.tsx';
+import {
+  mockContextValue,
+  mockFirstItemContextValue,
+} from '@/components/SearchItems/SearchItems.test.tsx';
+import Hero from '@/components/Hero/Hero.tsx';
+import * as getHeroNumberObject from '@/shared/utils/getHeroNumber.ts';
+import SearchItems from '@/components/SearchItems/SearchItems.tsx';
 
-// describe('Hero component tests', () => {
-//   afterEach(() => {
-//     jest.restoreAllMocks();
-//   });
+jest.mock('@/context-store.tsx');
+jest.mock('@/services/SwapiService.ts');
 
-//   test('Should render correct data', () => {
-//     const contextValue = {
-//       contextData: mockFirstItemContextValue,
-//       setContextData: () => {},
-//     };
+describe('Hero component tests', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-//     const mockGetHeroNumber = jest.spyOn(getHeroNumberObject, 'default');
-//     mockGetHeroNumber.mockImplementation(() => 1);
+  it('Should render correct data', () => {
+    const contextValue = {
+      contextData: mockFirstItemContextValue,
+      setContextData: () => {},
+    };
 
-//     jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+    const mockGetHeroNumber = jest.spyOn(getHeroNumberObject, 'default');
+    mockGetHeroNumber.mockImplementation(() => 1);
 
-//     const { getByText } = render(
-//       <Hero heroData={mockFirstItemContextValue.searchData[0]} setHeroNumber={() => {}} />,
-//       {
-//         value: contextValue,
-//       }
-//     );
+    jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
 
-//     const heroesName = getByText('Luke Skywalker');
-//     expect(heroesName).toBeInTheDocument();
+    const { getByText } = render(
+      <Hero heroData={mockFirstItemContextValue.searchData[0]} setHeroNumber={() => {}} />,
+      {
+        value: contextValue,
+      }
+    );
 
-//     const heroesBirthdayDate = getByText('Birthday date: 19BBY');
-//     expect(heroesBirthdayDate).toBeInTheDocument();
+    const heroesName = getByText('Luke Skywalker');
+    expect(heroesName).toBeInTheDocument();
 
-//     const heroesGender = getByText('Gender: male');
-//     expect(heroesGender).toBeInTheDocument();
-//   });
+    const heroesBirthdayDate = getByText('Birthday date: 19BBY');
+    expect(heroesBirthdayDate).toBeInTheDocument();
 
-//   it('should open details component after click', () => {
-//     jest.mock('@/hooks/useFetching.ts', () => ({
-//       getData: jest.fn(),
-//       totalPages: 10,
-//       pagesArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-//       searchFormHandler: jest.fn(),
-//       fetchError: jest.fn(),
-//       setFetchError: jest.fn(),
-//       currentPage: 1,
-//       setCurrentPage: jest.fn(),
-//     }));
+    const heroesGender = getByText('Gender: male');
+    expect(heroesGender).toBeInTheDocument();
+  });
 
-//     const contextValue = {
-//       contextData: mockContextValue,
-//       setContextData: () => {},
-//     };
+  it('should open details component after click', async () => {
+    const contextValue = {
+      contextData: mockContextValue,
+      setContextData: jest.fn(),
+    };
+    jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
 
-//     // jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+    render(<SearchItems />, {
+      value: contextValue,
+    });
 
-//     const { asFragment } = render(<App />, {
-//       value: contextValue,
-//     });
+    fireEvent.click(screen.getByTestId('hero_id_1'));
 
-//     expect(asFragment()).toMatchSnapshot();
-//   });
-// });
+    await waitFor(() => {
+      expect(contextValue.setContextData).toHaveBeenCalled();
+    });
+  });
+});

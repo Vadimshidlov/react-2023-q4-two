@@ -249,6 +249,15 @@ export const mockContextValue: ContextDataType = {
   isShowDetails: false,
 };
 
+export const mockContextValueDetails: ContextDataType = {
+  searchData: mockResult,
+  searchValue: '',
+  currentPage: 1,
+  isLoading: false,
+  isLoadingDetails: false,
+  isShowDetails: true,
+};
+
 export const mockEmptyContextValue: ContextDataType = {
   searchData: [],
   searchValue: '',
@@ -311,6 +320,8 @@ describe('SearchItems component tests', () => {
     const hero = getByText('Luke Skywalker');
 
     expect(hero).toBeInTheDocument();
+
+    screen.debug();
   });
 
   test('SearchItems has 10 child elements', () => {

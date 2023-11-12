@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699645256644" clover="3.2.0">
-  <project timestamp="1699645256644" name="All files">
-    <metrics statements="214" coveredstatements="95" conditionals="31" coveredconditionals="5" methods="63" coveredmethods="9" elements="308" coveredelements="109" complexity="0" loc="214" ncloc="214" packages="15" files="22" classes="22"/>
+<coverage generated="1699813573678" clover="3.2.0">
+  <project timestamp="1699813573679" name="All files">
+    <metrics statements="214" coveredstatements="98" conditionals="31" coveredconditionals="5" methods="63" coveredmethods="10" elements="308" coveredelements="113" complexity="0" loc="214" ncloc="214" packages="15" files="22" classes="22"/>
     <package name="src">
       <metrics statements="16" coveredstatements="7" conditionals="3" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="App.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\App.tsx">
@@ -39,13 +39,13 @@
       </file>
       <file name="rtl-utils.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\rtl-utils.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="15" count="7" type="stmt"/>
-        <line num="18" count="7" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="18" count="12" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.components.AppLayout">
@@ -62,13 +62,13 @@
       <metrics statements="26" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="0"/>
       <file name="DetailsComponent.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\Details\DetailsComponent.tsx">
         <metrics statements="26" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
@@ -126,22 +126,22 @@
       </file>
     </package>
     <package name="src.components.Hero">
-      <metrics statements="14" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="1"/>
+      <metrics statements="14" coveredstatements="10" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="2"/>
       <file name="Hero.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\Hero\Hero.tsx">
-        <metrics statements="14" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="41" type="stmt"/>
-        <line num="8" count="41" type="stmt"/>
-        <line num="10" count="41" type="stmt"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="1"/>
+        <metrics statements="14" coveredstatements="10" conditionals="1" coveredconditionals="0" methods="5" coveredmethods="2"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="81" type="stmt"/>
+        <line num="8" count="81" type="stmt"/>
+        <line num="10" count="81" type="stmt"/>
+        <line num="15" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
       </file>
     </package>
@@ -164,8 +164,8 @@
       <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="MyLoader.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\MyLoader\MyLoader.tsx">
         <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
     </package>
@@ -210,41 +210,41 @@
       <metrics statements="19" coveredstatements="18" conditionals="8" coveredconditionals="5" methods="3" coveredmethods="3"/>
       <file name="NoDataComponent.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\SearchItems\NoDataComponent.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
       </file>
       <file name="SearchItems.tsx" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\components\SearchItems\SearchItems.tsx">
         <metrics statements="16" coveredstatements="15" conditionals="8" coveredconditionals="5" methods="2" coveredmethods="2"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="6" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="18" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="16" count="12" type="stmt"/>
+        <line num="18" count="12" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="20" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
-        <line num="24" count="40" type="stmt"/>
-        <line num="28" count="6" type="stmt"/>
+        <line num="20" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="23" count="8" type="stmt"/>
+        <line num="24" count="80" type="stmt"/>
+        <line num="33" count="12" type="stmt"/>
       </file>
     </package>
     <package name="src.hooks">
       <metrics statements="44" coveredstatements="7" conditionals="3" coveredconditionals="0" methods="12" coveredmethods="0"/>
       <file name="useFetching.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\hooks\useFetching.ts">
         <metrics statements="44" coveredstatements="7" conditionals="3" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -288,34 +288,34 @@
       <metrics statements="13" coveredstatements="8" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="2"/>
       <file name="AxiosApiService.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\services\AxiosApiService.ts">
         <metrics statements="7" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="3" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
       </file>
       <file name="SwapiService.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\services\SwapiService.ts">
         <metrics statements="6" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.shared.utils">
       <metrics statements="9" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
       <file name="getHeroNumber.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\shared\utils\getHeroNumber.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="40" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="80" type="stmt"/>
       </file>
       <file name="getPagesArray.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\shared\utils\getPagesArray.ts">
         <metrics statements="5" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
@@ -323,7 +323,7 @@
       </file>
       <file name="getTotalPages.ts" path="E:\LENOVO_LEGION\JS-learn-2.0\RS-SCHOOL\react-2023-q4-two\src\shared\utils\getTotalPages.ts">
         <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
       </file>
     </package>
