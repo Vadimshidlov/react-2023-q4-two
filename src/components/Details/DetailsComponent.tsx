@@ -40,7 +40,6 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
   return (
     <div className="hero-details__container">
       {contextData.isLoadingDetails || !heroData ? (
-        // eslint-disable-next-line react/jsx-no-undef
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>
@@ -48,7 +47,6 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
             className="hero-details__button"
             type="button"
             onClick={() => {
-              // setShowDetails(false);
               setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
             }}
           >

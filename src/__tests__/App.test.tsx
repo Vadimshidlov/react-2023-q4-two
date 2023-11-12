@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { ContextDataStoreProvider } from '@/context-store.tsx';
 import App from '@/App.tsx';
-// import { ContextDataStore } from '@/context-store.tsx';
 
 jest.mock('@/context-store.tsx');
 
