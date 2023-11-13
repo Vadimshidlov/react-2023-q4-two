@@ -5,10 +5,6 @@ import NoDataComponent from '@/components/SearchItems/NoDataComponent.tsx';
 import Hero from '@/components/Hero/Hero.tsx';
 import DetailsComponent from '@/components/Details/DetailsComponent.tsx';
 
-// export type SearchItemsPropsType = {
-//   currentPage: number;
-// };
-
 export default function SearchItems() {
   let content: ReactNode;
 
