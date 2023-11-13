@@ -4,20 +4,25 @@ import { useContextData } from '@/context-store.tsx';
 import SwapiService from '@/services/SwapiService.ts';
 import getTotalPages from '@/shared/utils/getTotalPages.ts';
 import getPagesArray from '@/shared/utils/getPagesArray.ts';
+import { useSearchDispatch, useSearchSelector } from '@/hooks/redux.ts';
+import { startHeroLoading, stopHeroLoading } from '@/store/SearchSlice.ts';
 
 export default function useFetching() {
-  const { contextData, setContextData } = useContextData();
+  const { setContextData } = useContextData();
   const [totalPages, setTotalPages] = useState(0);
   const STAR_WARS = useRef(SwapiService);
   const [fetchError, setFetchError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [urlParams, setUrlParams] = useSearchParams();
   const navigate = useNavigate();
+  const { search } = useSearchSelector((state) => state.searchReducer);
+  const searchDispatch = useSearchDispatch();
 
   const getData = async () => {
     const searchValueFromStorage = localStorage.getItem('searchValue');
 
-    setContextData((prevState) => ({ ...prevState, isLoading: true }));
+    // setContextData((prevState) => ({ ...prevState, isLoading: true }));
+    searchDispatch(startHeroLoading());
 
     if (!localStorage.getItem('searchValue')) {
       const peopleData = await STAR_WARS.current.getAllPeoples(currentPage);
@@ -35,7 +40,8 @@ export default function useFetching() {
       setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
     }
 
-    setContextData((prevState) => ({ ...prevState, isLoading: false }));
+    // setContextData((prevState) => ({ ...prevState, isLoading: false }));
+    searchDispatch(stopHeroLoading());
   };
 
   const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -47,8 +53,8 @@ export default function useFetching() {
     // setShowDetails(false);
     setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
 
-    localStorage.setItem('searchValue', contextData.searchValue);
-    const searchPeopleData = await STAR_WARS.current.searchPeoples(contextData.searchValue);
+    localStorage.setItem('searchValue', search);
+    const searchPeopleData = await STAR_WARS.current.searchPeoples(search);
     setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
 
     setCurrentPage(1);

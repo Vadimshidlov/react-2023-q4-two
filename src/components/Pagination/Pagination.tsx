@@ -1,16 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 import { useContextData } from '@/context-store.tsx';
 import { PaginationPropsType } from '@/components/Pagination/types.ts';
+import { useSearchSelector } from '@/hooks/redux.ts';
 
 export default function Pagination({
   pagesArray,
   currentPage,
   setCurrentPage,
 }: PaginationPropsType) {
-  const { contextData, setContextData } = useContextData();
+  const { setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
+  const { isLoading } = useSearchSelector((state) => state.searchReducer);
 
-  return contextData.isLoading ? null : (
+  return isLoading ? null : (
     <div className="page__container">
       {pagesArray.map((page) => (
         <button

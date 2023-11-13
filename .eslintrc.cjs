@@ -47,7 +47,15 @@ module.exports = {
         "tsx": "never"
       }
     ],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    'implicit-arrow-linebreak': 'off',
+    'arrow-body-style': 'off',
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state',
+      ]
+    }],
     // "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
   },
 };

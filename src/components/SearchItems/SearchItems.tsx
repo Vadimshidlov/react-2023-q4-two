@@ -4,14 +4,16 @@ import MyLoader from '@/components/MyLoader/MyLoader.tsx';
 import NoDataComponent from '@/components/SearchItems/NoDataComponent.tsx';
 import Hero from '@/components/Hero/Hero.tsx';
 import DetailsComponent from '@/components/Details/DetailsComponent.tsx';
+import { useSearchSelector } from '@/hooks/redux.ts';
 
 export default function SearchItems() {
   let content: ReactNode;
 
   const { contextData } = useContextData();
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
+  const { isLoading } = useSearchSelector((state) => state.searchReducer);
 
-  if (contextData.isLoading) {
+  if (isLoading) {
     content = <MyLoader stylesClassName="loader__container" />;
   } else if (contextData.searchData?.length === 0) {
     content = <NoDataComponent />;
