@@ -1,13 +1,21 @@
 import { ReactNode, useState } from 'react';
-import { useContextData } from '@/context-store.tsx';
 import MyLoader from '@/components/MyLoader/MyLoader.tsx';
 import NoDataComponent from '@/components/SearchItems/NoDataComponent.tsx';
 import Hero from '@/components/Hero/Hero.tsx';
 import DetailsComponent from '@/components/Details/DetailsComponent.tsx';
 import { useSearchSelector } from '@/hooks/redux.ts';
+import { heroesAPI } from '@/services/HeroesService.ts';
+import { useContextData } from '@/context-store.tsx';
 
 export default function SearchItems() {
   let content: ReactNode;
+
+  const { search } = useSearchSelector((state) => state.searchReducer);
+
+  const { data: heroes } = heroesAPI.useFetchAllHeroesQuery({
+    searchValue: search,
+    page: 1,
+  });
 
   const { contextData } = useContextData();
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
@@ -15,10 +23,11 @@ export default function SearchItems() {
 
   if (isLoading) {
     content = <MyLoader stylesClassName="loader__container" />;
-  } else if (contextData.searchData?.length === 0) {
+    // } else if (contextData.searchData?.length === 0) {
+  } else if (heroes?.results.length === 0) {
     content = <NoDataComponent />;
   } else {
-    content = contextData.searchData?.map((searchItem) => (
+    content = heroes?.results.map((searchItem) => (
       <Hero
         data-test
         key={searchItem.name}

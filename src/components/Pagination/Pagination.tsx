@@ -8,6 +8,7 @@ export default function Pagination({
   currentPage,
   setCurrentPage,
 }: PaginationPropsType) {
+  console.log(pagesArray, 'pagesArray');
   const { setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
   const { isLoading } = useSearchSelector((state) => state.searchReducer);

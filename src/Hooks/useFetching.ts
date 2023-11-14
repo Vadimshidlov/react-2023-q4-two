@@ -18,35 +18,35 @@ export default function useFetching() {
   const { search } = useSearchSelector((state) => state.searchReducer);
   const searchDispatch = useSearchDispatch();
 
-  const getData = async () => {
-    const searchValueFromStorage = localStorage.getItem('searchValue');
-
-    // setContextData((prevState) => ({ ...prevState, isLoading: true }));
-    searchDispatch(startHeroLoading());
-
-    if (!localStorage.getItem('searchValue')) {
-      const peopleData = await STAR_WARS.current.getAllPeoples(currentPage);
-
-      setTotalPages(getTotalPages(peopleData.count));
-
-      setContextData((prevState) => ({ ...prevState, searchData: peopleData.results }));
-    } else if (searchValueFromStorage) {
-      const searchPeopleData = await STAR_WARS.current.searchPeoples(
-        searchValueFromStorage,
-        currentPage
-      );
-      setTotalPages(getTotalPages(searchPeopleData.count));
-
-      setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
-    }
-
-    // setContextData((prevState) => ({ ...prevState, isLoading: false }));
-    searchDispatch(stopHeroLoading());
-  };
+  // const getData = async () => {
+  //   const searchValueFromStorage = localStorage.getItem('searchValue');
+  //
+  //   // setContextData((prevState) => ({ ...prevState, isLoading: true }));
+  //   searchDispatch(startHeroLoading());
+  //
+  //   if (!localStorage.getItem('searchValue')) {
+  //     const peopleData = await STAR_WARS.current.getAllPeoples(currentPage);
+  //
+  //     setTotalPages(getTotalPages(peopleData.count));
+  //
+  //     setContextData((prevState) => ({ ...prevState, searchData: peopleData.results }));
+  //   } else if (searchValueFromStorage) {
+  //     const searchPeopleData = await STAR_WARS.current.searchPeoples(
+  //       searchValueFromStorage,
+  //       currentPage
+  //     );
+  //     setTotalPages(getTotalPages(searchPeopleData.count));
+  //
+  //     setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
+  //   }
+  //
+  //   // setContextData((prevState) => ({ ...prevState, isLoading: false }));
+  //   searchDispatch(stopHeroLoading());
+  // };
 
   const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setContextData((prevState) => ({ ...prevState, isLoading: true }));
+    searchDispatch(startHeroLoading());
 
     urlParams.delete('details');
     setUrlParams(urlParams);
@@ -60,20 +60,20 @@ export default function useFetching() {
     setCurrentPage(1);
     setTotalPages(getTotalPages(searchPeopleData.count));
 
-    setContextData((prevState) => ({ ...prevState, isLoading: false }));
+    searchDispatch(stopHeroLoading());
   };
 
   useEffect(() => {
     urlParams.set('page', currentPage.toString());
     navigate(`/search?${urlParams.toString()}`);
 
-    getData();
+    // getData();
   }, [currentPage]);
 
   const pagesArray = getPagesArray(totalPages);
 
   return {
-    getData,
+    // getData,
     totalPages,
     pagesArray,
     searchFormHandler,
