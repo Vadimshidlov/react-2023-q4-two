@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type PaginationPropsType = {
-  pagesArray: number[];
+  // pagesArray: number[];
   currentPage: number;
   setCurrentPage: (value: React.SetStateAction<number>) => void;
 };

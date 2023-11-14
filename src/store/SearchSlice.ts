@@ -42,6 +42,7 @@ const searchSlice = createSlice({
   },
 });
 
-export const { changeSearch, startHeroLoading, stopHeroLoading } = searchSlice.actions;
+export const { changeSearch, startHeroLoading } = searchSlice.actions;
+export const { stopHeroLoading, setTotalPages } = searchSlice.actions;
 
 export default searchSlice.reducer;

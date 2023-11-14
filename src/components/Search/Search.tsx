@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from 'react';
 import './Search.scss';
 import { SearchPropsType } from '@/components/Search/types.ts';
 import SearchIcon from '@/components/Search/SearchIcon.tsx';
@@ -7,7 +8,8 @@ import { changeSearch } from '@/store/SearchSlice.ts';
 
 export default function Search({ setFetchError, searchFormHandler, fetchError }: SearchPropsType) {
   const { search } = useSearchSelector((state) => state.searchReducer);
-  const searchDispatch = useSearchDispatch();
+  // const searchDispatch = useSearchDispatch();
+  const [inputValue, setInputValue] = useState<string>(search);
 
   // const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
   //   setContextData((prevState) => ({ ...prevState, searchValue: event.target.value }));
@@ -15,7 +17,8 @@ export default function Search({ setFetchError, searchFormHandler, fetchError }:
   // };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    searchDispatch(changeSearch(event.target.value));
+    // searchDispatch(changeSearch(event.target.value));
+    setInputValue(event.target.value);
     setFetchError('');
   };
 
@@ -25,7 +28,8 @@ export default function Search({ setFetchError, searchFormHandler, fetchError }:
         <div className="search-input__container">
           <SearchIcon />
           {/* <input type="text" value={contextData.searchValue} onChange={changeHandler} /> */}
-          <input type="text" value={search} onChange={changeHandler} />
+          {/* <input type="text" value={search} onChange={changeHandler} /> */}
+          <input type="text" value={inputValue} onChange={changeHandler} />
         </div>
         <button type="submit">Search</button>
       </form>

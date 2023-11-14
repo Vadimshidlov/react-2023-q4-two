@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useContextData } from '@/context-store.tsx';
-import SwapiService from '@/services/SwapiService.ts';
-import getTotalPages from '@/shared/utils/getTotalPages.ts';
-import getPagesArray from '@/shared/utils/getPagesArray.ts';
+// import SwapiService from '@/services/SwapiService.ts';
+// import getPagesArray from '@/shared/utils/getPagesArray.ts';
 import { useSearchDispatch, useSearchSelector } from '@/hooks/redux.ts';
 import { startHeroLoading, stopHeroLoading } from '@/store/SearchSlice.ts';
 
 export default function useFetching() {
   const { setContextData } = useContextData();
-  const [totalPages, setTotalPages] = useState(0);
-  const STAR_WARS = useRef(SwapiService);
+  // const [totalPages, setTotalPages] = useState(0);
+  // const STAR_WARS = useRef(SwapiService);
   const [fetchError, setFetchError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [urlParams, setUrlParams] = useSearchParams();
@@ -47,6 +46,7 @@ export default function useFetching() {
   const searchFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     searchDispatch(startHeroLoading());
+    // searchDispatch(changeSearch(event.target));
 
     urlParams.delete('details');
     setUrlParams(urlParams);
@@ -54,11 +54,11 @@ export default function useFetching() {
     setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
 
     localStorage.setItem('searchValue', search);
-    const searchPeopleData = await STAR_WARS.current.searchPeoples(search);
-    setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
+    // const searchPeopleData = await STAR_WARS.current.searchPeoples(search);
+    // setContextData((prevState) => ({ ...prevState, searchData: searchPeopleData.results }));
 
     setCurrentPage(1);
-    setTotalPages(getTotalPages(searchPeopleData.count));
+    // setTotalPages(getTotalPages(searchPeopleData.count));
 
     searchDispatch(stopHeroLoading());
   };
@@ -70,12 +70,12 @@ export default function useFetching() {
     // getData();
   }, [currentPage]);
 
-  const pagesArray = getPagesArray(totalPages);
+  // const pagesArray = getPagesArray(totalPages);
 
   return {
     // getData,
-    totalPages,
-    pagesArray,
+    // totalPages,
+    // pagesArray,
     searchFormHandler,
     fetchError,
     setFetchError,

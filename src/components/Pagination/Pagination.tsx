@@ -1,17 +1,20 @@
 import { useSearchParams } from 'react-router-dom';
 import { useContextData } from '@/context-store.tsx';
-import { PaginationPropsType } from '@/components/Pagination/types.ts';
-import { useSearchSelector } from '@/hooks/redux.ts';
+import { usePagesDispatch, usePagesSelector, useSearchSelector } from '@/hooks/redux.ts';
+import getPagesArray from '@/shared/utils/getPagesArray';
+import { setCurrentPage } from '@/store/PagesSlice.ts';
 
-export default function Pagination({
-  pagesArray,
-  currentPage,
-  setCurrentPage,
-}: PaginationPropsType) {
-  console.log(pagesArray, 'pagesArray');
+export default function Pagination() {
   const { setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
+
   const { isLoading } = useSearchSelector((state) => state.searchReducer);
+  const { totalPages, currentPage } = usePagesSelector((state) => state.pagesReducer);
+
+  const pagesDispatch = usePagesDispatch();
+
+  const pagesArray = getPagesArray(totalPages);
+  console.log(pagesArray, 'pagesArray');
 
   return isLoading ? null : (
     <div className="page__container">
@@ -25,7 +28,8 @@ export default function Pagination({
             setUrlParams(urlParams);
             // setShowDetails(false);
             setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
-            setCurrentPage(page);
+            // setCurrentPage(page);
+            pagesDispatch(setCurrentPage(page));
           }}
         >
           {page}

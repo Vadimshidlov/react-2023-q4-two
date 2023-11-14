@@ -8,8 +8,7 @@ import Pagination from '@/components/Pagination/Pagination.tsx';
 
 export default function MainPage() {
   // eslint-disable-next-line object-curly-newline
-  const { pagesArray, searchFormHandler, fetchError, setFetchError, currentPage, setCurrentPage } =
-    useFetching();
+  const { searchFormHandler, fetchError, setFetchError } = useFetching();
 
   return (
     <div className="main-page__container">
@@ -20,11 +19,7 @@ export default function MainPage() {
         setFetchError={setFetchError}
       />
       <SearchItems />
-      <Pagination
-        currentPage={currentPage}
-        pagesArray={pagesArray}
-        setCurrentPage={setCurrentPage}
-      />
+      <Pagination />
     </div>
   );
 }
