@@ -1,35 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './DetailsComponent.scss';
 import { DetailsComponentPropsType } from '@/components/Details/types.ts';
-import { PeopleRequestType } from '@/components/Search/types.ts';
-import { useContextData } from '@/context-store.tsx';
-import SwapiService from '@/services/SwapiService.ts';
 import MyLoader from '@/components/MyLoader/MyLoader.tsx';
+import { useViewModeDispatch, useViewModeSelector } from '@/hooks/redux';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
+import { heroesAPI } from '@/services/HeroesService';
 
 export default function DetailsComponent({ heroNumber }: DetailsComponentPropsType) {
-  const [heroData, setHeroData] = useState<PeopleRequestType>(Object);
-  const { contextData, setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const STAR_WARS_API = useRef(SwapiService);
+  const { isViewModeLoading } = useViewModeSelector((state) => state.viewModeReducer);
+
+  const { data: heroeDetails } = heroesAPI.useFetchSelectHeroQuery(heroNumber);
+
+  const viewModeDispatch = useViewModeDispatch();
 
   useEffect(() => {
-    const getData = async () => {
-      setContextData((prevState) => ({ ...prevState, isLoadingDetails: true }));
-
-      urlParams.set('details', heroNumber.toString());
-      navigate(`?${urlParams.toString()}`);
-
-      const result = await STAR_WARS_API.current.getSelectPeople(heroNumber);
-
-      setHeroData(result);
-
-      setContextData((prevState) => ({ ...prevState, isLoadingDetails: false }));
-    };
-
-    getData();
+    urlParams.set('details', heroNumber.toString());
+    navigate(`?${urlParams.toString()}`);
 
     return () => {
       urlParams.delete('details');
@@ -39,7 +29,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
 
   return (
     <div className="hero-details__container">
-      {contextData.isLoadingDetails || !heroData ? (
+      {isViewModeLoading || !heroeDetails ? (
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>
@@ -47,20 +37,20 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
             className="hero-details__button"
             type="button"
             onClick={() => {
-              setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
+              viewModeDispatch(changeViewMode(false));
             }}
           >
             Close
           </button>
 
           <div className="hero-details-info">
-            <p>{`${heroData.name}`}</p>
+            <p>{`${heroeDetails.name}`}</p>
             <p>{`Hero ID: ${heroNumber}`}</p>
-            <p>{`Height: ${heroData.height} sm`}</p>
-            <p>{`Skin color: ${heroData.skin_color}`}</p>
-            <p>{`Eye color: ${heroData.eye_color}`}</p>
-            <p>{`Hair color: ${heroData.hair_color}`}</p>
-            <p>{`Mass: ${heroData.mass} kg`}</p>
+            <p>{`Height: ${heroeDetails.height} sm`}</p>
+            <p>{`Skin color: ${heroeDetails.skin_color}`}</p>
+            <p>{`Eye color: ${heroeDetails.eye_color}`}</p>
+            <p>{`Hair color: ${heroeDetails.hair_color}`}</p>
+            <p>{`Mass: ${heroeDetails.mass} kg`}</p>
           </div>
         </>
       )}

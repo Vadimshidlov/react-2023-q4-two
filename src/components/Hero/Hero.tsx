@@ -1,25 +1,27 @@
 import './Hero.scss';
 import { HeroPropsType } from '@/components/Hero/types.ts';
 import getHeroNumber from '@/shared/utils/getHeroNumber.ts';
-import { useContextData } from '@/context-store.tsx';
+import { useViewModeDispatch, useViewModeSelector } from '@/hooks/redux';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
 
 export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
   const heroNum = getHeroNumber(heroData);
-  const { contextData, setContextData } = useContextData();
+  const { isViewMode } = useViewModeSelector((state) => state.viewModeReducer);
+  const viewModeDispatch = useViewModeDispatch();
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <li
       className="hero__container"
       onClick={() => {
-        if (contextData.isShowDetails) {
-          setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
+        if (isViewMode) {
+          viewModeDispatch(changeViewMode(false));
           setHeroNumber(0);
 
           return;
         }
 
-        setContextData((prevState) => ({ ...prevState, isShowDetails: true }));
+        viewModeDispatch(changeViewMode(true));
 
         setHeroNumber(heroNum);
       }}

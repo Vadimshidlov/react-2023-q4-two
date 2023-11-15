@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { PeoplesRequestType } from '@/components/Search/types.ts';
+import { PeopleRequestType, PeoplesRequestType } from '@/components/Search/types.ts';
 
 // eslint-disable-next-line import/prefer-default-export
 export const heroesAPI = createApi({
@@ -13,6 +13,11 @@ export const heroesAPI = createApi({
           search: searchValue,
           page,
         },
+      }),
+    }),
+    fetchSelectHero: build.query<PeopleRequestType, number>({
+      query: (selecHeroNumber) => ({
+        url: `/people/${selecHeroNumber}`,
       }),
     }),
   }),

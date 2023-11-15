@@ -1,39 +1,50 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import './Search.scss';
-import { SearchPropsType } from '@/components/Search/types.ts';
+import { useSearchParams } from 'react-router-dom';
 import SearchIcon from '@/components/Search/SearchIcon.tsx';
-import { useSearchDispatch, useSearchSelector } from '@/hooks/redux.ts';
+import {
+  usePagesDispatch,
+  useSearchDispatch,
+  useSearchSelector,
+  useViewModeDispatch,
+} from '@/hooks/redux';
 import { changeSearch } from '@/store/SearchSlice.ts';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
+import { setCurrentPage } from '@/store/PagesSlice.ts';
 
-export default function Search({ setFetchError, searchFormHandler, fetchError }: SearchPropsType) {
+export default function Search() {
   const { search } = useSearchSelector((state) => state.searchReducer);
-  // const searchDispatch = useSearchDispatch();
   const [inputValue, setInputValue] = useState<string>(search);
 
-  // const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-  //   setContextData((prevState) => ({ ...prevState, searchValue: event.target.value }));
-  //   setFetchError('');
-  // };
+  const [urlParams, setUrlParams] = useSearchParams();
+  const searchDispatch = useSearchDispatch();
+  const viewModeDispatch = useViewModeDispatch();
+  const pagesDispatch = usePagesDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // searchDispatch(changeSearch(event.target.value));
     setInputValue(event.target.value);
-    setFetchError('');
+  };
+
+  const submitFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    urlParams.delete('details');
+    setUrlParams(urlParams);
+    viewModeDispatch(changeViewMode(false));
+    pagesDispatch(setCurrentPage(1));
+
+    searchDispatch(changeSearch(inputValue));
+    localStorage.setItem('searchValue', inputValue);
   };
 
   return (
     <div className="search__container">
-      <form action="" className="search__form" onSubmit={searchFormHandler}>
+      <form action="" className="search__form" onSubmit={submitFormHandler}>
         <div className="search-input__container">
           <SearchIcon />
-          {/* <input type="text" value={contextData.searchValue} onChange={changeHandler} /> */}
-          {/* <input type="text" value={search} onChange={changeHandler} /> */}
           <input type="text" value={inputValue} onChange={changeHandler} />
         </div>
         <button type="submit">Search</button>
       </form>
-      {fetchError ? <div className="data__result">{fetchError}</div> : null}
     </div>
   );
 }

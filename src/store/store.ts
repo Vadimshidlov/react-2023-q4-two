@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import searchReducer from 'src/store/SearchSlice.ts';
-import pagesReducer from 'src/store/PagesSlice.ts';
+import searchReducer from '@/store/SearchSlice.ts';
+import pagesReducer from '@/store/PagesSlice.ts';
+import viewModeReducer from '@/store/ViewModeSlice';
 import { heroesAPI } from '@/services/HeroesService.ts';
 
 const rootReducer = combineReducers({
   searchReducer,
   pagesReducer,
+  viewModeReducer,
   [heroesAPI.reducerPath]: heroesAPI.reducer,
 });
 

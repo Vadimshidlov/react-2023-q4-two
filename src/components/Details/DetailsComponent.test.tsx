@@ -4,7 +4,7 @@ import { render, screen } from '@/components/rtl-utils.tsx';
 import * as AppContext from '@/context-store.tsx';
 import { mockResult } from '@/components/SearchItems/SearchItems.test.tsx';
 import SwapiService from '@/services/SwapiService.ts';
-import * as useFetching from '@/hooks/useFetching.ts';
+import * as useFetching from '@/hooks/useFetching';
 import SearchItems from '@/components/SearchItems/SearchItems.tsx';
 
 jest.mock('@/context-store.tsx');

@@ -1,20 +1,25 @@
 import { useSearchParams } from 'react-router-dom';
-import { useContextData } from '@/context-store.tsx';
-import { usePagesDispatch, usePagesSelector, useSearchSelector } from '@/hooks/redux.ts';
+// import { useContextData } from '@/context-store.tsx';
+import {
+  usePagesDispatch,
+  usePagesSelector,
+  useSearchSelector,
+  useViewModeDispatch,
+} from '@/hooks/redux';
 import getPagesArray from '@/shared/utils/getPagesArray';
 import { setCurrentPage } from '@/store/PagesSlice.ts';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
 
 export default function Pagination() {
-  const { setContextData } = useContextData();
   const [urlParams, setUrlParams] = useSearchParams();
 
   const { isLoading } = useSearchSelector((state) => state.searchReducer);
   const { totalPages, currentPage } = usePagesSelector((state) => state.pagesReducer);
 
   const pagesDispatch = usePagesDispatch();
+  const viewModeDispatch = useViewModeDispatch();
 
   const pagesArray = getPagesArray(totalPages);
-  console.log(pagesArray, 'pagesArray');
 
   return isLoading ? null : (
     <div className="page__container">
@@ -26,9 +31,8 @@ export default function Pagination() {
           onClick={() => {
             urlParams.delete('details');
             setUrlParams(urlParams);
-            // setShowDetails(false);
-            setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
-            // setCurrentPage(page);
+            // setContextData((prevState) => ({ ...prevState, isShowDetails: false }));
+            viewModeDispatch(changeViewMode(false));
             pagesDispatch(setCurrentPage(page));
           }}
         >

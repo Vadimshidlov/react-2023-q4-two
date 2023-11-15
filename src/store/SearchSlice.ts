@@ -18,8 +18,6 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     changeSearch(state, action: PayloadAction<string>) {
-      console.log(state, action);
-
       state.search = action.payload;
     },
     startHeroLoading(state) {
