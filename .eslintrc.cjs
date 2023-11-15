@@ -16,6 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.json',
+    // tsconfigRootDir: __dirname,
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
@@ -37,25 +38,26 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
-    "import/extensions": [
-      "off",
-      "ignorePackages",
+    'import/extensions': [
+      'off',
+      'ignorePackages',
       {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'implicit-arrow-linebreak': 'off',
     'arrow-body-style': 'off',
-    'no-param-reassign': ['error', {
-      props: true,
-      ignorePropertyModificationsFor: [
-        'state',
-      ]
-    }],
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state'],
+      },
+    ],
     // "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
   },
 };

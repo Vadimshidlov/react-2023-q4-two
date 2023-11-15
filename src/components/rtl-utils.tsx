@@ -1,22 +1,23 @@
-import { RenderOptions, render } from '@testing-library/react';
-import { ReactElement } from 'react';
-import { AuthContextType, ContextDataStore } from '@/context-store.tsx';
+import React, { PropsWithChildren } from 'react';
+import { render } from '@testing-library/react';
+import type { RenderOptions } from '@testing-library/react';
+import { Provider } from 'react-redux';
 
-interface IExtendedRenderOptions extends RenderOptions {
-  value?: AuthContextType;
-  initialEntries?: string[];
+import { SearchStoreType, setupStore } from '@/store/store';
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  store?: SearchStoreType;
 }
 
-export const customRender = (
-  ui: ReactElement,
-  options?: Omit<IExtendedRenderOptions, 'wrapper'>
-) => {
-  function Wrapper({ children }: { children: React.ReactNode }) {
-    return <ContextDataStore.Provider value={options?.value}>{children}</ContextDataStore.Provider>;
+export function renderWithProviders(
+  ui: React.ReactElement,
+  { store = setupStore(), ...renderOptions }: ExtendedRenderOptions = {}
+) {
+  function Wrapper({ children }: PropsWithChildren<object>): JSX.Element {
+    return <Provider store={store}>{children}</Provider>;
   }
-
-  return render(ui, { wrapper: Wrapper, ...options });
-};
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
 
 export * from '@testing-library/react';
-export { customRender as render };
+export { renderWithProviders as render };

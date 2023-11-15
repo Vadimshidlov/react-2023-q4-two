@@ -20,6 +20,8 @@ export default function SearchItems() {
     page: currentPage,
   });
 
+  console.log(heroes, 'for tests');
+
   const [selectHeroNumber, setSelectHeroNumber] = useState<number>(0);
   const { isLoading } = useSearchSelector((state) => state.searchReducer);
   // const {} = useViewModeSelector((state)=> state.v)
