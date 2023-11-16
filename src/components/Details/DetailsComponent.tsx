@@ -28,7 +28,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
   }, [heroNumber]);
 
   return (
-    <div className="hero-details__container">
+    <div className="hero-details__container" data-testid="details-container">
       {isViewModeLoading || !heroeDetails ? (
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (

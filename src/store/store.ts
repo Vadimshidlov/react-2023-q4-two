@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolkit';
 import searchReducer from '@/store/SearchSlice.ts';
 import pagesReducer from '@/store/PagesSlice.ts';
 import viewModeReducer from '@/store/ViewModeSlice';
@@ -11,9 +11,10 @@ const rootReducer = combineReducers({
   [heroesAPI.reducerPath]: heroesAPI.reducer,
 });
 
-export const setupStore = () => {
+export const setupStore = (preloadedState?: PreloadedState<RootStateType>) => {
   return configureStore({
     reducer: rootReducer,
+    preloadedState,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(heroesAPI.middleware),
   });
 };

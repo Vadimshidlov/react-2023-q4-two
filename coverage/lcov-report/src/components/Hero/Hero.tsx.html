@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">76.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/16</span>
+                <span class='fraction'>13/17</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
@@ -97,30 +97,34 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">81x</span>
-<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">91x</span>
+<span class="cline-any cline-yes">202x</span>
+<span class="cline-any cline-yes">91x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">91x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,30 +138,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './Hero.scss';
 import { HeroPropsType } from '@/components/Hero/types.ts';
 import getHeroNumber from '@/shared/utils/getHeroNumber.ts';
-import { useContextData } from '@/context-store.tsx';
+import { useViewModeDispatch, useViewModeSelector } from '@/hooks/redux';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
 &nbsp;
 export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
   const heroNum = getHeroNumber(heroData);
-  const { contextData, setContextData } = useContextData();
+  const { isViewMode } = useViewModeSelector((state) =&gt; state.viewModeReducer);
+  const viewModeDispatch = useViewModeDispatch();
 &nbsp;
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     &lt;li
       className="hero__container"
       onClick={() =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (contextData.isShowDetails) {
-<span class="cstat-no" title="statement not covered" >          setContextData(<span class="fstat-no" title="function not covered" >(p</span>revState) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...prevState, isShowDetails: false })</span>);</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isViewMode) {
+<span class="cstat-no" title="statement not covered" >          viewModeDispatch(changeViewMode(false));</span>
 <span class="cstat-no" title="statement not covered" >          setHeroNumber(0);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
 &nbsp;
-        setContextData(<span class="fstat-no" title="function not covered" >(p</span>revState) =&gt; (<span class="cstat-no" title="statement not covered" >{ ...prevState, isShowDetails: true })</span>);
+        viewModeDispatch(changeViewMode(true));
 &nbsp;
         setHeroNumber(heroNum);
       }}
       onKeyDown={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >console.log('Show details')}</span>
-      data-testid={`hero_id_${heroNum}`}
+      data-testid="hero-item"
     &gt;
       &lt;h3 className="hero__title"&gt;{heroData.name}&lt;/h3&gt;
       &lt;p className="hero__item-text"&gt;{`Birthday date: ${heroData.birth_year}`}&lt;/p&gt;
@@ -172,7 +178,7 @@ export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-12T18:26:13.626Z
+                at 2023-11-16T11:51:06.166Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
