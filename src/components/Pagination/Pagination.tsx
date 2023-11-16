@@ -22,7 +22,7 @@ export default function Pagination() {
   const pagesArray = getPagesArray(totalPages);
 
   return isLoading ? null : (
-    <div className="page__container">
+    <div className="page__container" data-testid="pagination_container">
       {pagesArray.map((page) => (
         <button
           type="button"
@@ -35,6 +35,7 @@ export default function Pagination() {
             viewModeDispatch(changeViewMode(false));
             pagesDispatch(setCurrentPage(page));
           }}
+          data-testid="pagination_btn"
         >
           {page}
         </button>

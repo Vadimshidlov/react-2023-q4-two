@@ -1,86 +1,149 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
-import { act } from '@testing-library/react';
-import { render, screen } from '@/components/rtl-utils.tsx';
-import * as AppContext from '@/context-store.tsx';
-import { mockResult } from '@/components/SearchItems/SearchItems.test.tsx';
-import SwapiService from '@/services/SwapiService.ts';
-import * as useFetching from '@/hooks/useFetching';
-import SearchItems from '@/components/SearchItems/SearchItems.tsx';
+import { screen, renderWithProviders, act, fireEvent, waitFor } from '@/components/rtl-utils';
+import { mockResponsePeoples } from '@/mocks/handlers';
+import SearchItems from '@/components/SearchItems/SearchItems';
+import { mockLukeSkywalkerData } from '@/components/Hero/Hero.test';
 
-jest.mock('@/context-store.tsx');
-jest.mock('@/services/SwapiService.ts');
-jest.mock('@/hooks/useFetching.ts');
-
-const contextValue = {
-  contextData: {
-    searchData: mockResult,
-    searchValue: '',
-    currentPage: 1,
-    isLoading: false,
-    isLoadingDetails: false,
-    isShowDetails: true,
-  },
-  setContextData: () => jest.fn(),
-};
-
-const promise = Promise.resolve({
-  name: 'Luke Skywalker',
-  height: '172',
-  mass: '77',
-  hair_color: 'blond',
-  skin_color: 'fair',
-  eye_color: 'blue',
-  birth_year: '19BBY',
-  gender: 'male',
-  homeworld: 'https://swapi.dev/api/planets/1/',
-  films: [
-    'https://swapi.dev/api/films/1/',
-    'https://swapi.dev/api/films/2/',
-    'https://swapi.dev/api/films/3/',
-    'https://swapi.dev/api/films/6/',
-  ],
-  species: [],
-  vehicles: ['https://swapi.dev/api/vehicles/14/', 'https://swapi.dev/api/vehicles/30/'],
-  starships: ['https://swapi.dev/api/starships/12/', 'https://swapi.dev/api/starships/22/'],
-  created: '2014-12-09T13:50:51.644000Z',
-  edited: '2014-12-20T21:17:56.891000Z',
-  url: 'https://swapi.dev/api/people/1/',
+beforeAll(() => {
+  jest.clearAllMocks();
 });
 
-const mockHookReturnedValue = {
-  getData: jest.fn(),
-  totalPages: 9,
-  pagesArray: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  searchFormHandler: jest.fn(),
-  fetchError: '',
-  setFetchError: jest.fn(),
-  currentPage: 1,
-  setCurrentPage: jest.fn(),
-};
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
-jest.spyOn(useFetching, 'default').mockImplementation(() => mockHookReturnedValue);
+describe('DetailsComponent component tests', () => {
+  test('Make sure the detailed card component correctly displays the detailed card data', async () => {
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockResponsePeoples }),
+      });
+    });
 
-jest.spyOn(AppContext, 'useContextData').mockImplementation(() => contextValue);
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockLukeSkywalkerData }),
+      });
+    });
 
-jest.spyOn(SwapiService, 'getSelectPeople').mockImplementation(() => promise);
+    await act(async () => {
+      await waitFor(() => {
+        renderWithProviders(
+          <MemoryRouter>
+            <SearchItems />
+          </MemoryRouter>
+        );
+      });
+    });
 
-describe('Hero component tests', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
+    const heroes = screen.getAllByTestId('hero-item');
+
+    await act(() => {
+      fireEvent.click(heroes[0]);
+    });
+
+    const heroId = screen.getByText('Hero ID: 1');
+    expect(heroId).toBeInTheDocument();
+
+    const heroHeight = screen.getByText('Height: 172 sm');
+    expect(heroHeight).toBeInTheDocument();
+
+    const heroEyeColor = screen.getByText('Eye color: blue');
+    expect(heroEyeColor).toBeInTheDocument();
+
+    const heroMass = screen.getByText('Mass: 77 kg');
+    expect(heroMass).toBeInTheDocument();
+
+    const heroSkinColor = screen.getByText('Skin color: fair');
+    expect(heroSkinColor).toBeInTheDocument();
   });
 
-  it('Should render correct data', () => {
-    act(() => {
-      render(
+  test('Check that a loading indicator is displayed while fetching data', async () => {
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockResponsePeoples }),
+      });
+    });
+
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockResponsePeoples }),
+      });
+    });
+
+    await waitFor(() => {
+      renderWithProviders(
         <MemoryRouter>
           <SearchItems />
-        </MemoryRouter>,
-        {
-          value: contextValue,
-        }
+        </MemoryRouter>
       );
     });
 
-    screen.debug();
+    const heroes = screen.getAllByTestId('hero-item');
+
+    act(() => {
+      fireEvent.click(heroes[0]);
+    });
+
+    expect(screen.getByTestId('app-loader')).toBeInTheDocument();
+  });
+
+  test('Ensure that clicking the close button hides the component', async () => {
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockResponsePeoples }),
+      });
+    });
+
+    fetchMock.mockOnceIf('https://swapi.dev/api/people/1', () => {
+      return Promise.resolve({
+        status: 200,
+        body: JSON.stringify({ ...mockLukeSkywalkerData }),
+      });
+    });
+
+    await act(async () => {
+      await waitFor(() => {
+        renderWithProviders(
+          <MemoryRouter>
+            <SearchItems />
+          </MemoryRouter>
+        );
+      });
+    });
+
+    const heroes = screen.getAllByTestId('hero-item');
+
+    await act(() => {
+      fireEvent.click(heroes[0]);
+    });
+
+    const detailsCloseBtn = screen.getByTestId('detail_close_btn');
+
+    expect(detailsCloseBtn).toBeInTheDocument();
+
+    act(() => {
+      fireEvent.click(detailsCloseBtn);
+    });
+
+    await waitFor(async () => {
+      const detailsCloseBtnNull = screen.queryByTestId('detail_close_btn');
+
+      expect(detailsCloseBtnNull).not.toBeInTheDocument();
+    });
+
+    await waitFor(async () => {
+      const detailsContainer = screen.queryByTestId('details-container');
+
+      expect(detailsContainer).not.toBeInTheDocument();
+    });
   });
 });

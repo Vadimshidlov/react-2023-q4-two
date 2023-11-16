@@ -39,6 +39,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
             onClick={() => {
               viewModeDispatch(changeViewMode(false));
             }}
+            data-testid="detail_close_btn"
           >
             Close
           </button>

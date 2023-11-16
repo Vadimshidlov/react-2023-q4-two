@@ -8,7 +8,8 @@ import Hero from '@/components/Hero/Hero';
 import SearchItems from '@/components/SearchItems/SearchItems';
 import { mockResponsePeoples } from '@/mocks/handlers';
 
-const mockLukeSkywalkerData = {
+// eslint-disable-next-line import/prefer-default-export
+export const mockLukeSkywalkerData = {
   name: 'Luke Skywalker',
   height: '172',
   mass: '77',
@@ -52,8 +53,6 @@ describe('Hero component tests', () => {
 
     const heroesGender = await screen.getByText('Gender: male');
     expect(heroesGender).toBeInTheDocument();
-    // const mockGetHeroNumber = jest.spyOn(getHeroNumberObject, 'default');
-    // mockGetHeroNumber.mockImplementation(() => 1);
   });
 
   test('Validate that clicking on a card opens a detailed card component', async () => {
