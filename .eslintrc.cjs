@@ -58,6 +58,7 @@ module.exports = {
         ignorePropertyModificationsFor: ['state'],
       },
     ],
+    'object-curly-newline': 'off',
     // "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
   },
 };

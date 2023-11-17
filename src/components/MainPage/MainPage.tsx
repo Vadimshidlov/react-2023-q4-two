@@ -18,6 +18,10 @@ export default function MainPage() {
     navigate(`/search?${urlParams.toString()}`);
   }, [currentPage, navigate, urlParams]);
 
+  // useEffect(() => {
+  //   console.log(window.location.href);
+  // }, []);
+
   return (
     <div className="main-page__container">
       <ErrorButton />

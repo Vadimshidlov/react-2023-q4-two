@@ -43,7 +43,9 @@ export default function Search() {
           <SearchIcon />
           <input type="text" value={inputValue} onChange={changeHandler} />
         </div>
-        <button type="submit">Search</button>
+        <button type="submit" data-testid="submit_button">
+          Search
+        </button>
       </form>
     </div>
   );
