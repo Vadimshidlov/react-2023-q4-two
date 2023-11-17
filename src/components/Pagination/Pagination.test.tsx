@@ -33,7 +33,6 @@ describe('Pagination component tests', () => {
     });
 
     await waitFor(() => {
-      console.log('first render', window.location.href);
       expect(window.location.href).toBe('http://localhost/search?page=1');
       screen.debug();
     });
@@ -45,7 +44,6 @@ describe('Pagination component tests', () => {
     });
 
     await waitFor(() => {
-      console.log('second render', window.location.href);
       expect(window.location.href).toBe('http://localhost/search?page=2');
     });
   });
