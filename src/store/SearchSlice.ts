@@ -8,7 +8,8 @@ interface ISearch {
 }
 
 const initialState: ISearch = {
-  search: localStorage.getItem('searchValue') || '',
+  // search: localStorage.getItem('searchValue') || '',
+  search: '',
   isLoading: false,
   totalPages: 0,
 };

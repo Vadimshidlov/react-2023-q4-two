@@ -1,18 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
-// import { server } from '@/mocks/server';
-// eslint-disable-next-line object-curly-newline
 import { screen, renderWithProviders, waitFor } from '@/components/rtl-utils';
-import { mockResponsePeoples } from '@/mocks/handlers';
+import { mockResponsePeoples } from '@/mocks/apiResponse';
 import SearchItems from '@/components/SearchItems/SearchItems';
-
-// beforeAll(() => server.listen());
-// afterEach(() => {
-//   server.resetHandlers();
-// });
-
-// afterAll(() => server.close());
 
 beforeAll(() => {
   jest.clearAllMocks();
@@ -20,8 +10,6 @@ beforeAll(() => {
 
 describe('SearchItems component tests', () => {
   test('HeroItems container has 10 child elements', async () => {
-    // jest.spyOn(getTotalPages, 'default').mockReturnValue(10);
-
     fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
       return Promise.resolve({
         status: 200,
@@ -39,14 +27,10 @@ describe('SearchItems component tests', () => {
 
     const heroes = await screen.getAllByTestId('hero-item');
 
-    // await waitFor(() => screen.debug());
-    // await waitFor(() => screen.debug());
     expect(heroes.length).toBe(10);
   });
 
   test('Check that an appropriate message is displayed if no cards are present', async () => {
-    // jest.spyOn(getTotalPages, 'default').mockReturnValue(10);
-
     fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
       return Promise.resolve({
         status: 200,

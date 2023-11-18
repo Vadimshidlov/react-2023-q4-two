@@ -4,7 +4,7 @@ import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import { screen, waitFor } from '@/components/rtl-utils';
-import { mockResponsePeoples } from '@/mocks/handlers';
+import { mockResponsePeoples } from '@/mocks/apiResponse';
 import MainPage from '@/components/MainPage/MainPage.tsx';
 import { setupStore } from '@/store/store.ts';
 import AppLayout from '@/components/AppLayout/AppLayout.tsx';

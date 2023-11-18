@@ -1,11 +1,8 @@
-/* eslint-disable object-curly-newline */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { screen, renderWithProviders, act, fireEvent, waitFor } from '@/components/rtl-utils';
-import { mockResponsePeoples } from '@/mocks/handlers';
 import SearchItems from '@/components/SearchItems/SearchItems';
-import { mockLukeSkywalkerData } from '@/components/Hero/Hero.test';
+import { mockLukeSkywalkerData, mockResponsePeoples } from '@/mocks/apiResponse';
 
 beforeAll(() => {
   jest.clearAllMocks();
@@ -13,24 +10,24 @@ beforeAll(() => {
 
 beforeEach(() => {
   jest.clearAllMocks();
+
+  fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
+    return Promise.resolve({
+      status: 200,
+      body: JSON.stringify({ ...mockResponsePeoples }),
+    });
+  });
+
+  fetchMock.mockOnceIf('https://swapi.dev/api/people/1', () => {
+    return Promise.resolve({
+      status: 200,
+      body: JSON.stringify({ ...mockLukeSkywalkerData }),
+    });
+  });
 });
 
 describe('DetailsComponent component tests', () => {
   test('Make sure the detailed card component correctly displays the detailed card data', async () => {
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockResponsePeoples }),
-      });
-    });
-
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockLukeSkywalkerData }),
-      });
-    });
-
     await act(async () => {
       await waitFor(() => {
         renderWithProviders(
@@ -64,20 +61,6 @@ describe('DetailsComponent component tests', () => {
   });
 
   test('Check that a loading indicator is displayed while fetching data', async () => {
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockResponsePeoples }),
-      });
-    });
-
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockResponsePeoples }),
-      });
-    });
-
     await waitFor(() => {
       renderWithProviders(
         <MemoryRouter>
@@ -96,20 +79,6 @@ describe('DetailsComponent component tests', () => {
   });
 
   test('Ensure that clicking the close button hides the component', async () => {
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/?search=&page=1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockResponsePeoples }),
-      });
-    });
-
-    fetchMock.mockOnceIf('https://swapi.dev/api/people/1', () => {
-      return Promise.resolve({
-        status: 200,
-        body: JSON.stringify({ ...mockLukeSkywalkerData }),
-      });
-    });
-
     await act(async () => {
       await waitFor(() => {
         renderWithProviders(
