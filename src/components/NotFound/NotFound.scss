@@ -1,0 +1,11 @@
+.not-found__container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .not-found__title {
+    font-size: 30px;
+    color: rebeccapurple;
+  }
+}

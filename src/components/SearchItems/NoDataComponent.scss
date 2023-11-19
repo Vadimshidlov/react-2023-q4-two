@@ -1,0 +1,13 @@
+.not-found__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .not-found__title {
+    padding-top: 20vh;
+    font-family: Georgia, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+  }
+}
