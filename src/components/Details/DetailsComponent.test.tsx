@@ -61,19 +61,19 @@ describe('DetailsComponent component tests', () => {
   });
 
   test('Check that a loading indicator is displayed while fetching data', async () => {
-    await waitFor(() => {
-      renderWithProviders(
-        <MemoryRouter>
-          <SearchItems />
-        </MemoryRouter>
-      );
+    await act(async () => {
+      await waitFor(() => {
+        renderWithProviders(
+          <MemoryRouter>
+            <SearchItems />
+          </MemoryRouter>
+        );
+      });
     });
 
     const heroes = screen.getAllByTestId('hero-item');
 
-    act(() => {
-      fireEvent.click(heroes[0]);
-    });
+    fireEvent.click(heroes[0]);
 
     expect(screen.getByTestId('app-loader')).toBeInTheDocument();
   });

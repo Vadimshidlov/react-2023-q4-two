@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import '@testing-library/jest-dom';
 import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';

@@ -1,4 +1,3 @@
-// import '@/components/SearchItems/NoDataComponent.scss';
 import './NotFound.scss';
 
 export default function NotFound() {

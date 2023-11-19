@@ -22,7 +22,6 @@ module.exports = {
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    // 'comma-dangle': ['error', 'only-multiline'],
     'comma-dangle': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     'react/prop-types': 'off',
@@ -59,6 +58,6 @@ module.exports = {
       },
     ],
     'object-curly-newline': 'off',
-    // "react/jsx-filename-extension": [1, { "extensions": [".js", ".ts", "tsx"] }],
+    "no-nested-ternary": "off"
   },
 };
