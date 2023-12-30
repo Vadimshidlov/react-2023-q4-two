@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from '@/components/AppLayout/AppLayout.tsx';
 import MainPage from '@/components/MainPage/MainPage.tsx';
 import NotFound from '@/components/NotFound/NotFound.tsx';
+import TestFetch from '@/components/TestFetch/TestFetch.tsx';
 
 function AppRoutes() {
   return (
@@ -10,6 +11,7 @@ function AppRoutes() {
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Navigate to="/search" />} />
           <Route path="/search" element={<MainPage />} />
+          <Route path="/fetch" element={<TestFetch />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>
