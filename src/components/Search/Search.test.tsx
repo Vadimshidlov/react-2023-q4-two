@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithProviders, waitFor, screen, fireEvent } from '@/components/rtl-utils';
 import { mockResponsePeoples, mockLukeSkywalkerData } from '@/mocks/apiResponse';
 import MainPage from '@/components/MainPage/MainPage.tsx';
-import * as reduxHooks from '@/hooks/redux';
+import * as reduxHooks from '@/Hooks/redux.ts';
 import * as actions from '@/store/SearchSlice';
 
 beforeAll(() => {
