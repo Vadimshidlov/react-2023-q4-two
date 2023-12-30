@@ -1,12 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
+
+import { setCurrentPage } from '@/store/PagesSlice.ts';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
 import {
   usePagesDispatch,
   usePagesSelector,
   useSearchSelector,
   useViewModeDispatch,
-} from '@/hooks/redux';
-import { setCurrentPage } from '@/store/PagesSlice.ts';
-import { changeViewMode } from '@/store/ViewModeSlice.ts';
+} from '@/Hooks/redux.ts';
 
 export default function Pagination({ pagesArray }: { pagesArray: number[] }) {
   const [urlParams, setUrlParams] = useSearchParams();

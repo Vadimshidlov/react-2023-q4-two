@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import './Search.scss';
 import { useSearchParams } from 'react-router-dom';
 import SearchIcon from '@/components/Search/SearchIcon.tsx';
+
+import { changeSearch } from '@/store/SearchSlice.ts';
+import { changeViewMode } from '@/store/ViewModeSlice.ts';
+import { setCurrentPage } from '@/store/PagesSlice.ts';
 import {
   usePagesDispatch,
   useSearchDispatch,
   useSearchSelector,
   useViewModeDispatch,
-} from '@/hooks/redux';
-import { changeSearch } from '@/store/SearchSlice.ts';
-import { changeViewMode } from '@/store/ViewModeSlice.ts';
-import { setCurrentPage } from '@/store/PagesSlice.ts';
+} from '@/Hooks/redux.ts';
 
 export default function Search() {
   const { search } = useSearchSelector((state) => state.searchReducer);

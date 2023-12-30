@@ -1,8 +1,8 @@
 import './Hero.scss';
 import { HeroPropsType } from '@/components/Hero/types.ts';
 import getHeroNumber from '@/shared/utils/getHeroNumber.ts';
-import { useViewModeDispatch, useViewModeSelector } from '@/hooks/redux';
 import { changeViewMode } from '@/store/ViewModeSlice.ts';
+import { useViewModeDispatch, useViewModeSelector } from '@/Hooks/redux.ts';
 
 export default function Hero({ heroData, setHeroNumber }: HeroPropsType) {
   const heroNum = getHeroNumber(heroData);

@@ -3,11 +3,11 @@ import MyLoader from '@/components/MyLoader/MyLoader.tsx';
 import NoDataComponent from '@/components/SearchItems/NoDataComponent.tsx';
 import Hero from '@/components/Hero/Hero.tsx';
 import DetailsComponent from '@/components/Details/DetailsComponent.tsx';
-import { usePagesSelector, useSearchSelector, useViewModeSelector } from '@/hooks/redux';
 import { heroesAPI } from '@/services/HeroesService.ts';
 import Pagination from '@/components/Pagination/Pagination.tsx';
 import getPagesArray from '@/shared/utils/getPagesArray.ts';
 import getTotalPages from '@/shared/utils/getTotalPages.ts';
+import { usePagesSelector, useSearchSelector, useViewModeSelector } from '@/Hooks/redux.ts';
 
 export default function SearchItems() {
   const { search } = useSearchSelector((state) => state.searchReducer);

@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import ErrorButton from '@/components/ErrorButton/ErrorButton.tsx';
 import Search from '@/components/Search/Search.tsx';
 import SearchItems from '@/components/SearchItems/SearchItems.tsx';
-import { usePagesSelector } from '@/hooks/redux';
+import { usePagesSelector } from '@/Hooks/redux.ts';
 
 export default function MainPage() {
   const [urlParams] = useSearchParams();

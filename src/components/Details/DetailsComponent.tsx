@@ -3,9 +3,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import './DetailsComponent.scss';
 import { DetailsComponentPropsType } from '@/components/Details/types.ts';
 import MyLoader from '@/components/MyLoader/MyLoader.tsx';
-import { useViewModeDispatch, useViewModeSelector } from '@/hooks/redux';
 import { changeViewMode } from '@/store/ViewModeSlice.ts';
 import { heroesAPI } from '@/services/HeroesService';
+import { useViewModeDispatch, useViewModeSelector } from '@/Hooks/redux.ts';
 
 export default function DetailsComponent({ heroNumber }: DetailsComponentPropsType) {
   const [urlParams, setUrlParams] = useSearchParams();
