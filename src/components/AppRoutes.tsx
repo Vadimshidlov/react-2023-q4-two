@@ -15,7 +15,7 @@ function AppRoutes() {
           <Route path="/search" element={<MainPage />} />
           <Route path="/fetch" element={<TestFetch />} />
         </Route>
-        <Route path="/uncontrolled" element={<UncontrolledForm />} />
+        <Route path="/uform" element={<UncontrolledForm />} />
         <Route path="/controlled" element={<ControlledForm />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
