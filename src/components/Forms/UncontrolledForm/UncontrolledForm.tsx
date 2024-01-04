@@ -1,10 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './UncontrolledForm.scss';
+import { ValidationError } from 'yup';
+import { userScheme } from '@/components/Forms/UncontrolledForm/validateScheme';
+import { getValidationErrorsObject } from '@/components/Forms/UncontrolledForm/getValidationErrorsObject';
 
 export type SubmitDataType = {
   firstName: string | undefined;
   lastName: string | undefined;
-  age: string | undefined;
+  age: number | undefined;
   email: string | undefined;
   password: string | undefined;
   secondPassword: string | undefined;
@@ -13,7 +16,33 @@ export type SubmitDataType = {
   tAndC: boolean | undefined;
 };
 
+export type FormErrorType = {
+  firstName: string;
+  lastName: string;
+  age: number;
+  email: string;
+  password: string;
+  secondPassword: string;
+  gender: string;
+  country: string;
+  tAndC: string;
+};
+
+const getInitialFormErrors = (): FormErrorType => ({
+  firstName: '',
+  lastName: '',
+  age: 0,
+  email: '',
+  password: '',
+  secondPassword: '',
+  gender: '',
+  country: '',
+  tAndC: '',
+});
+
 function UncontrolledForm() {
+  const [formErrors, setFormErrors] = useState<FormErrorType>(getInitialFormErrors());
+
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -24,22 +53,36 @@ function UncontrolledForm() {
   const countryRef = useRef<HTMLInputElement>(null);
   const tAndCRef = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const submitData: SubmitDataType = {
-      firstName: firstNameRef?.current?.value,
-      lastName: lastNameRef?.current?.value,
-      age: ageRef?.current?.value,
-      email: emailRef?.current?.value,
-      password: passwordRef?.current?.value,
-      secondPassword: secondPasswordRef?.current?.value,
-      gender: genderRef?.current?.value,
-      country: countryRef?.current?.value,
-      tAndC: tAndCRef?.current?.checked,
-    };
+    try {
+      const submitData: SubmitDataType = {
+        firstName: firstNameRef?.current?.value,
+        lastName: lastNameRef?.current?.value,
+        age: Number(ageRef?.current?.value),
+        email: emailRef?.current?.value,
+        password: passwordRef?.current?.value,
+        secondPassword: secondPasswordRef?.current?.value,
+        gender: genderRef?.current?.value,
+        country: countryRef?.current?.value,
+        tAndC: tAndCRef?.current?.checked,
+      };
 
-    console.log(submitData);
+      console.log(submitData);
+
+      await userScheme.validate(submitData, { abortEarly: false });
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const errorsList = [...error.inner];
+
+        console.log(errorsList);
+        setFormErrors((prevState) => ({
+          ...prevState,
+          ...getValidationErrorsObject(errorsList),
+        }));
+      }
+    }
   };
 
   return (
@@ -47,25 +90,34 @@ function UncontrolledForm() {
       <form className="form" onSubmit={onSubmit}>
         <label htmlFor="firstNameInput" className="form__item">
           First name:
-          <div>
-            <input type="text" ref={firstNameRef} id="firstName" name="firstName" />
-          </div>
+          <input type="text" ref={firstNameRef} id="firstName" name="firstName" />
+          <span className="form__error">
+            {formErrors.firstName ? <p>{formErrors.firstName}</p> : null}
+          </span>
         </label>
         <label htmlFor="lastName" className="form__item">
           Last name:
           <input type="text" ref={lastNameRef} id="lastName" name="lastName" />
+          <span className="form__error">
+            {formErrors.lastName ? <p>{formErrors.lastName}</p> : null}
+          </span>
         </label>
         <label htmlFor="age" className="form__item">
           Age:
           <input type="text" ref={ageRef} id="age" name="age" />
+          <span className="form__error">{formErrors.age ? <p>{formErrors.age}</p> : null}</span>
         </label>
         <label htmlFor="email" className="form__item">
           Email:
           <input type="email" ref={emailRef} id="email" name="email" />
+          <span className="form__error">{formErrors.email ? <p>{formErrors.email}</p> : null}</span>
         </label>
         <label htmlFor="password" className="form__item">
           Password:
           <input type="password" ref={passwordRef} id="password" name="password" />
+          <span className="form__error">
+            {formErrors.password ? <p>{formErrors.password}</p> : null}
+          </span>
         </label>
         <label htmlFor="secondPassword" className="form__item">
           Confirm password:
@@ -75,6 +127,9 @@ function UncontrolledForm() {
             id="secondPassword"
             name="secondPassword"
           />
+          <span className="form__error">
+            {formErrors.secondPassword ? <p>{formErrors.secondPassword}</p> : null}
+          </span>
         </label>
         <label htmlFor="gender" className="form__item">
           Gender:
@@ -99,6 +154,11 @@ function UncontrolledForm() {
         <label htmlFor="tAndC" className="form__tAndC">
           Accept T&C
           <input type="checkbox" name="tAndC" id="tAndC" ref={tAndCRef} />
+        </label>
+
+        <label htmlFor="tAndC" className="form__tAndC">
+          File
+          <input type="file" name="tAndC" id="tAndC" ref={tAndCRef} />
         </label>
 
         <input type="submit" value="Submit" className="form__button" />
