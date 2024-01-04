@@ -13,7 +13,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
 
   const { isViewModeLoading } = useViewModeSelector((state) => state.viewModeReducer);
 
-  const { data: heroeDetails } = heroesAPI.useFetchSelectHeroQuery(heroNumber);
+  const { data: heroDetails } = heroesAPI.useFetchSelectHeroQuery(heroNumber);
 
   const viewModeDispatch = useViewModeDispatch();
 
@@ -29,7 +29,7 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
 
   return (
     <div className="hero-details__container" data-testid="details-container">
-      {isViewModeLoading || !heroeDetails ? (
+      {isViewModeLoading || !heroDetails ? (
         <MyLoader stylesClassName="loader__container loader__details" />
       ) : (
         <>
@@ -45,13 +45,13 @@ export default function DetailsComponent({ heroNumber }: DetailsComponentPropsTy
           </button>
 
           <div className="hero-details-info">
-            <p>{`${heroeDetails.name}`}</p>
+            <p>{`${heroDetails.name}`}</p>
             <p>{`Hero ID: ${heroNumber}`}</p>
-            <p>{`Height: ${heroeDetails.height} sm`}</p>
-            <p>{`Skin color: ${heroeDetails.skin_color}`}</p>
-            <p>{`Eye color: ${heroeDetails.eye_color}`}</p>
-            <p>{`Hair color: ${heroeDetails.hair_color}`}</p>
-            <p>{`Mass: ${heroeDetails.mass} kg`}</p>
+            <p>{`Height: ${heroDetails.height} sm`}</p>
+            <p>{`Skin color: ${heroDetails.skin_color}`}</p>
+            <p>{`Eye color: ${heroDetails.eye_color}`}</p>
+            <p>{`Hair color: ${heroDetails.hair_color}`}</p>
+            <p>{`Mass: ${heroDetails.mass} kg`}</p>
           </div>
         </>
       )}

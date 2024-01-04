@@ -10,7 +10,7 @@
     "format:fix": "prettier --write src/**/*.{ts,tsx,css,md,json} --config ./.prettierrc.cjs",
     "preview": "vite preview",
     "prepare": "husky install",
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
@@ -29,6 +29,7 @@
     "jest-fetch-mock": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.49.2",
     "react-redux": "^8.1.3",
     "react-router-dom": "^6.16.0",
     "react-spinners": "^0.13.8",

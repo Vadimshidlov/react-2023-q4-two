@@ -16,8 +16,8 @@ export const heroesAPI = createApi({
       }),
     }),
     fetchSelectHero: build.query<PeopleRequestType, number>({
-      query: (selecHeroNumber) => ({
-        url: `/people/${selecHeroNumber}`,
+      query: (selectHeroNumber) => ({
+        url: `/people/${selectHeroNumber}`,
       }),
     }),
   }),
