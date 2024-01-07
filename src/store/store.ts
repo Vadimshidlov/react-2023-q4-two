@@ -2,12 +2,14 @@ import { PreloadedState, combineReducers, configureStore } from '@reduxjs/toolki
 import searchReducer from '@/store/SearchSlice.ts';
 import pagesReducer from '@/store/PagesSlice.ts';
 import viewModeReducer from '@/store/ViewModeSlice';
+import unControlledFormReducer from '@/store/UnControlledFormSlice';
 import { heroesAPI } from '@/services/HeroesService.ts';
 
 const rootReducer = combineReducers({
   searchReducer,
   pagesReducer,
   viewModeReducer,
+  unControlledFormReducer,
   [heroesAPI.reducerPath]: heroesAPI.reducer,
 });
 

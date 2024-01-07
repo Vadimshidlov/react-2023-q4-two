@@ -1,9 +1,14 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable consistent-return */
+import { RefObject, useCallback, useRef, useState } from 'react';
 import './UncontrolledForm.scss';
 import { ValidationError } from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { userScheme } from '@/components/Forms/UncontrolledForm/validateScheme';
 import { getValidationErrorsObject } from '@/components/Forms/UncontrolledForm/getValidationErrorsObject';
+import { SetFormDataType, setFormData } from '@/store/UnControlledFormSlice';
+import { useUncontrolledFormDispatch } from '@/Hooks/redux';
+import toBase64 from '../toBase64Helper';
 
 export type SubmitDataType = {
   firstName: string | undefined;
@@ -62,6 +67,8 @@ function UncontrolledForm() {
 
   const navigate = useNavigate();
 
+  const uncontrolledFormData = useUncontrolledFormDispatch();
+
   const listOfInputs: InputsListType[] = [
     firstNameRef,
     lastNameRef,
@@ -75,10 +82,6 @@ function UncontrolledForm() {
     tAndCRef,
   ];
 
-  useEffect(() => {
-    console.log(formErrors);
-  }, [formErrors]);
-
   const clearFormData = useCallback(
     (list: InputsListType[]): void => {
       setFormErrors(getInitialFormErrors());
@@ -91,14 +94,57 @@ function UncontrolledForm() {
         }
       });
 
-      navigate('/');
+      navigate('/main-form');
     },
     [navigate]
   );
 
-  const onSubmit = async (e: React.FormEvent) => {
-    console.log('onSubmit function');
+  const prepareDataForStore = async (data: SubmitDataType): Promise<SetFormDataType> => {
+    const {
+      firstName,
+      age,
+      country,
+      email,
+      file,
+      gender,
+      lastName,
+      password,
+      secondPassword,
+      tAndC,
+    } = data;
 
+    if (file) {
+      const fileForCode = file[0];
+      const base64File: string = await toBase64(fileForCode);
+
+      return {
+        firstName,
+        lastName,
+        age,
+        email,
+        password,
+        gender,
+        country,
+        file: base64File,
+        secondPassword,
+      };
+    }
+
+    // Return a default value or throw an error based on your use case
+    return Promise.resolve({
+      firstName,
+      lastName,
+      age,
+      email,
+      password,
+      gender,
+      country,
+      file: '',
+      secondPassword,
+    });
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -115,19 +161,17 @@ function UncontrolledForm() {
         tAndC: tAndCRef?.current?.checked,
       };
 
-      console.log(submitData, 'submitData');
-
       await userScheme.validate(submitData, { abortEarly: false });
 
-      console.log('Data is correct!');
+      const data = await prepareDataForStore(submitData);
+
+      uncontrolledFormData(setFormData({ ...data }));
+
       clearFormData(listOfInputs);
     } catch (error) {
-      console.log(error, 'CATCH');
-
       if (error instanceof ValidationError) {
         const errorsList = [...error.inner];
 
-        console.log(errorsList, 'errorsList');
         setFormErrors((prevState) => ({
           ...prevState,
           ...getValidationErrorsObject(errorsList),

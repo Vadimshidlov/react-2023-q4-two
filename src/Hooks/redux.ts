@@ -9,3 +9,6 @@ export const usePagesSelector: TypedUseSelectorHook<RootStateType> = useSelector
 
 export const useViewModeDispatch = () => useDispatch<SearchDispatchType>();
 export const useViewModeSelector: TypedUseSelectorHook<RootStateType> = useSelector;
+
+export const useUncontrolledFormDispatch = () => useDispatch<SearchDispatchType>();
+export const useUncontrolledFormSelector: TypedUseSelectorHook<RootStateType> = useSelector;

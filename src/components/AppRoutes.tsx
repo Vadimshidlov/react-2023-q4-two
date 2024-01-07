@@ -5,6 +5,7 @@ import NotFound from '@/components/NotFound/NotFound.tsx';
 import TestFetch from '@/components/TestFetch/TestFetch.tsx';
 import UncontrolledForm from '@/components/Forms/UncontrolledForm/UncontrolledForm';
 import ControlledForm from '@/components/Forms/ControlledForm/ControlledForm';
+import MainFormPage from '@/components/Forms/MainFormPage/MainFormPage';
 
 function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ function AppRoutes() {
           <Route path="/search" element={<MainPage />} />
           <Route path="/fetch" element={<TestFetch />} />
         </Route>
+        <Route path="/main-form" element={<MainFormPage />} />
         <Route path="/uform" element={<UncontrolledForm />} />
         <Route path="/controlled" element={<ControlledForm />} />
         <Route path="/*" element={<NotFound />} />
