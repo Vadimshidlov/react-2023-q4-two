@@ -13,6 +13,7 @@ export function getValidationErrorsObject(errorsList: yup.ValidationError[]): {
     secondPassword: '',
     gender: '',
     country: '',
+    file: '',
     tAndC: '',
   };
 
