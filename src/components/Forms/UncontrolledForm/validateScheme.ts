@@ -67,14 +67,11 @@ export const userScheme = yup.object({
     .string()
     .required('Password is a required field')
     .min(8, 'Password must contain at least 8 characters')
-    .matches(/(?=.[A-Z])/, 'The password must be received for one capital letter (AZ)')
-    .matches(/(?=.[a-z])/, 'Password must contain at least one lowercase letter (az)')
-    .matches(/(?=.\d)/, 'Password must contain at least one number (0-9)')
+    .matches(/(?=.[A-Z])/, 'The password must be received for one capital letter')
+    .matches(/(?=.[a-z])/, 'Password must contain at least one lowercase letter')
+    .matches(/(?=.\d)/, 'Password must contain at least one number')
     .matches(/^[^\s]*$/, 'Password must not contain a space')
-    .matches(
-      /(?=.[!@#$%^&-])/,
-      'The password must contain at least one special character (for example, !@#$%^&-)'
-    ),
+    .matches(/(?=.[!@#$%^&-])/, 'The password must contain at least one special character'),
   secondPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
   /* secondPassword: yup
     .string()
@@ -93,7 +90,10 @@ export const userScheme = yup.object({
     .uppercase()
     .required('Country is required field')
     .oneOf(['US', 'BE', 'RU'], 'Please, write valid country'),
-  tAndC: yup.boolean().isTrue().required('You need to acces our private policy'),
+  tAndC: yup
+    .boolean()
+    .isTrue('You need to acces our private policy')
+    .required('You need to acces our private policy'),
   file: yup
     .mixed<FileList>()
     .required('File is required')

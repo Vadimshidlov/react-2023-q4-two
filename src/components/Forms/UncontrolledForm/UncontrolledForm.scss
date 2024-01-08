@@ -28,6 +28,7 @@
 
       .form__error {
         font-size: 15px;
+        height: 15px;
         color: red;
       }
 
@@ -36,6 +37,7 @@
         height: 0.25rem;
         background-color: white;
         position: relative;
+        // background: transparent;
 
         .progress {
           width: 0%;
@@ -97,6 +99,12 @@
       color: white;
       background-color: black;
       border-radius: 5%;
+      cursor: pointer;
+      transition: all 0.5s;
+
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 }

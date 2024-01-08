@@ -256,9 +256,6 @@ function UncontrolledForm() {
               handlePassword(e.target.value);
             }}
           />
-          <span className="form__error">
-            {formErrors.password ? <p>{formErrors.password}</p> : null}
-          </span>
           <div className="progress__bar">
             <div
               className="progress"
@@ -269,11 +266,16 @@ function UncontrolledForm() {
             />
           </div>
           {passwordState.length !== 0 ? (
-            <p className="message" style={{ color: getActiveColor(message) }}>
-              Your password is
-              {message}
+            <p
+              className="message"
+              style={{ color: getActiveColor(message), fontSize: '15px', height: '15px' }}
+            >
+              {`Your password is ${message}`}
             </p>
           ) : null}
+          <span className="form__error">
+            {formErrors.password ? <p>{formErrors.password}</p> : null}
+          </span>
         </label>
         <label htmlFor="secondPassword" className="form__item">
           Confirm password:
