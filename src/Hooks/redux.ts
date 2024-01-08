@@ -12,3 +12,6 @@ export const useViewModeSelector: TypedUseSelectorHook<RootStateType> = useSelec
 
 export const useUncontrolledFormDispatch = () => useDispatch<SearchDispatchType>();
 export const useUncontrolledFormSelector: TypedUseSelectorHook<RootStateType> = useSelector;
+
+export const useCountriesDispatch = () => useDispatch<SearchDispatchType>();
+export const useCountriesSelector: TypedUseSelectorHook<RootStateType> = useSelector;

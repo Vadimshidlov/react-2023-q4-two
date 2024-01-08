@@ -10,6 +10,7 @@ import { getValidationErrorsObject } from '@/components/Forms/UncontrolledForm/g
 import { SetFormDataType, setFormData } from '@/store/UnControlledFormSlice';
 import { useUncontrolledFormDispatch } from '@/Hooks/redux';
 import toBase64 from '../toBase64Helper';
+import CountriesData from '@/components/Forms/CountriesData';
 
 export type SubmitDataType = {
   firstName: string | undefined;
@@ -53,7 +54,24 @@ const getInitialFormErrors = (): FormErrorType => ({
 type InputsListType = RefObject<HTMLInputElement> | RefObject<HTMLSelectElement>;
 
 function UncontrolledForm() {
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const secondPasswordRef = useRef<HTMLInputElement>(null);
+  const genderRef = useRef<HTMLSelectElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
+  const addFileRef = useRef<HTMLInputElement>(null);
+  const tAndCRef = useRef<HTMLInputElement>(null);
+
+  const navigate = useNavigate();
+
+  const uncontrolledFormData = useUncontrolledFormDispatch();
+
   const [formErrors, setFormErrors] = useState<FormErrorType>(getInitialFormErrors());
+  const [showAutoComplete, setshowAutoComplete] = useState(false);
+  const [countryValue, setcountryValue] = useState<string | null>(null);
 
   const [passwordState, setPasswordState] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -90,21 +108,6 @@ function UncontrolledForm() {
     setProgress(`${(passwordStrength.length / 5) * 100}%`);
     setMessage(strength);
   };
-
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const ageRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const secondPasswordRef = useRef<HTMLInputElement>(null);
-  const genderRef = useRef<HTMLSelectElement>(null);
-  const countryRef = useRef<HTMLInputElement>(null);
-  const addFileRef = useRef<HTMLInputElement>(null);
-  const tAndCRef = useRef<HTMLInputElement>(null);
-
-  const navigate = useNavigate();
-
-  const uncontrolledFormData = useUncontrolledFormDispatch();
 
   const listOfInputs: InputsListType[] = [
     firstNameRef,
@@ -219,7 +222,7 @@ function UncontrolledForm() {
 
   return (
     <div className="form__container">
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" onSubmit={onSubmit} autoComplete="off">
         <label htmlFor="firstName" className="form__item">
           First name:
           <input type="text" ref={firstNameRef} id="firstName" name="firstName" />
@@ -265,14 +268,16 @@ function UncontrolledForm() {
               }}
             />
           </div>
-          {passwordState.length !== 0 ? (
-            <p
-              className="message"
-              style={{ color: getActiveColor(message), fontSize: '15px', height: '15px' }}
-            >
-              {`Your password is ${message}`}
-            </p>
-          ) : null}
+          <span className="progress_message">
+            {passwordState.length !== 0 ? (
+              <p
+                className="message"
+                style={{ color: getActiveColor(message), fontSize: '15px', height: '15px' }}
+              >
+                {`Your password is ${message}`}
+              </p>
+            ) : null}
+          </span>
           <span className="form__error">
             {formErrors.password ? <p>{formErrors.password}</p> : null}
           </span>
@@ -306,10 +311,30 @@ function UncontrolledForm() {
 
         <label htmlFor="country" className="form__item">
           Country:
-          <input type="text" ref={countryRef} id="country" name="country" />
+          <input
+            type="text"
+            ref={countryRef}
+            id="country"
+            name="country"
+            onClick={(event: React.MouseEvent<HTMLElement>) => {
+              event.preventDefault();
+
+              setshowAutoComplete(!showAutoComplete);
+            }}
+            onChange={() => {
+              if (countryRef.current) {
+                setcountryValue(countryRef.current.value);
+              }
+            }}
+          />
           <span className="form__error">
             {formErrors.country ? <p>{formErrors.country}</p> : null}
           </span>
+          <div className="autocomplete__container">
+            {showAutoComplete && (
+              <CountriesData inputRef={countryRef} countryValue={countryValue} />
+            )}
+          </div>
         </label>
 
         <label htmlFor="file" className="form__item__file">

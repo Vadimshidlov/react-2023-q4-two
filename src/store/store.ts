@@ -3,6 +3,7 @@ import searchReducer from '@/store/SearchSlice.ts';
 import pagesReducer from '@/store/PagesSlice.ts';
 import viewModeReducer from '@/store/ViewModeSlice';
 import unControlledFormReducer from '@/store/UnControlledFormSlice';
+import countriesReducer from '@/store/CountriesSlice';
 import { heroesAPI } from '@/services/HeroesService.ts';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   pagesReducer,
   viewModeReducer,
   unControlledFormReducer,
+  countriesReducer,
   [heroesAPI.reducerPath]: heroesAPI.reducer,
 });
 
