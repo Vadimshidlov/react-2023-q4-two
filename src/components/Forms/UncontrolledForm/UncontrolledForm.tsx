@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable consistent-return */
 import { RefObject, useCallback, useRef, useState } from 'react';
@@ -54,6 +55,42 @@ type InputsListType = RefObject<HTMLInputElement> | RefObject<HTMLSelectElement>
 function UncontrolledForm() {
   const [formErrors, setFormErrors] = useState<FormErrorType>(getInitialFormErrors());
 
+  const [passwordState, setPasswordState] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [progress, setProgress] = useState<string>('0');
+
+  const getActiveColor = (type: string): string => {
+    if (type === 'Strong') return '#3FBB60';
+    if (type === 'Medium') return '#FE804D';
+
+    return 'FF0054';
+  };
+
+  const handlePassword = (passwordValue: string) => {
+    const strengthCheck = {
+      length: false,
+      hasUpperCase: false,
+      hasLowerCase: false,
+      hasDigit: false,
+      hasSpecialChar: false,
+    };
+
+    strengthCheck.length = passwordValue.length >= 8;
+    strengthCheck.hasUpperCase = /[A-Z]+/.test(passwordValue);
+    strengthCheck.hasLowerCase = /[A-Z]+/.test(passwordValue);
+    strengthCheck.hasDigit = /[0-9]+/.test(passwordValue);
+    strengthCheck.hasSpecialChar = /[^A-Za-z0-9]+/.test(passwordValue);
+
+    const passwordStrength = Object.values(strengthCheck).filter((value) => value);
+
+    const strength =
+      passwordStrength.length === 5 ? 'Strong' : passwordStrength.length >= 2 ? 'Medium' : 'Low';
+
+    setPasswordState(passwordValue);
+    setProgress(`${(passwordStrength.length / 5) * 100}%`);
+    setMessage(strength);
+  };
+
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
@@ -94,7 +131,7 @@ function UncontrolledForm() {
         }
       });
 
-      navigate('/main-form');
+      navigate('/main');
     },
     [navigate]
   );
@@ -209,10 +246,34 @@ function UncontrolledForm() {
         </label>
         <label htmlFor="password" className="form__item">
           Password:
-          <input type="password" ref={passwordRef} id="password" name="password" />
+          <input
+            type="password"
+            ref={passwordRef}
+            id="password"
+            name="password"
+            value={passwordState}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handlePassword(e.target.value);
+            }}
+          />
           <span className="form__error">
             {formErrors.password ? <p>{formErrors.password}</p> : null}
           </span>
+          <div className="progress__bar">
+            <div
+              className="progress"
+              style={{
+                width: progress,
+                backgroundColor: getActiveColor(message),
+              }}
+            />
+          </div>
+          {passwordState.length !== 0 ? (
+            <p className="message" style={{ color: getActiveColor(message) }}>
+              Your password is
+              {message}
+            </p>
+          ) : null}
         </label>
         <label htmlFor="secondPassword" className="form__item">
           Confirm password:
@@ -249,8 +310,8 @@ function UncontrolledForm() {
           </span>
         </label>
 
-        <label htmlFor="file" className="form__item">
-          Avatar:
+        <label htmlFor="file" className="form__item__file">
+          Chose a photo
           <input type="file" name="file" id="file" ref={addFileRef} />
           <span className="form__error">{formErrors.file ? <p>{formErrors.file}</p> : null}</span>
         </label>

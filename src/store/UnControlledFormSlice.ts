@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type IunControlledFormType = {
+  firstName: string | undefined;
+  lastName: string | undefined;
+  age: number | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  secondPassword: string | undefined;
+  gender: string | undefined;
+  country: string | undefined;
+  file: string | undefined;
+};
+
 export type IunControlledFormDataType = {
-  data: {
-    firstName: string | undefined;
-    lastName: string | undefined;
-    age: number | undefined;
-    email: string | undefined;
-    password: string | undefined;
-    secondPassword: string | undefined;
-    gender: string | undefined;
-    country: string | undefined;
-    file: string | undefined;
-  };
+  data: IunControlledFormType[];
 };
 
 export type SetFormDataType = {
@@ -27,17 +29,19 @@ export type SetFormDataType = {
 };
 
 const initialState: IunControlledFormDataType = {
-  data: {
-    firstName: '',
-    lastName: '',
-    age: 0,
-    email: '',
-    password: '',
-    secondPassword: '',
-    gender: '',
-    country: '',
-    file: '',
-  },
+  data: [
+    // {
+    //   firstName: '',
+    //   lastName: '',
+    //   age: 0,
+    //   email: '',
+    //   password: '',
+    //   secondPassword: '',
+    //   gender: '',
+    //   country: '',
+    //   file: '',
+    // },
+  ],
 };
 
 const unControlledDataSlice = createSlice({
@@ -45,7 +49,8 @@ const unControlledDataSlice = createSlice({
   initialState,
   reducers: {
     setFormData(state, action: PayloadAction<SetFormDataType>) {
-      state.data = action.payload;
+      // state.data = action.payload;
+      state.data.push(action.payload);
     },
   },
 });

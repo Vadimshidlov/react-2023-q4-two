@@ -75,7 +75,8 @@ export const userScheme = yup.object({
       /(?=.[!@#$%^&-])/,
       'The password must contain at least one special character (for example, !@#$%^&-)'
     ),
-  secondPassword: yup
+  secondPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
+  /* secondPassword: yup
     .string()
     .required('Password is a required field')
     .min(8, 'Password must contain at least 8 characters')
@@ -86,7 +87,7 @@ export const userScheme = yup.object({
     .matches(
       /(?=.[!@#$%^&-])/,
       'The password must contain at least one special character (for example, !@#$%^&-)'
-    ),
+    ), */
   country: yup
     .string()
     .uppercase()
