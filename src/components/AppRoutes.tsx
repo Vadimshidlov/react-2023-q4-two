@@ -6,6 +6,7 @@ import TestFetch from '@/components/TestFetch/TestFetch.tsx';
 import ControlledForm from '@/components/Forms/ControlledForm/ControlledForm';
 import MainFormPage from '@/components/Forms/MainFormPage/MainFormPage';
 import UncontrolledForm from '@/components/Forms/UncontrolledForm/UncontrolledForm';
+import TestState from '@/components/TestState/TestState.tsx';
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Route path="/main" element={<MainFormPage />} />
         <Route path="/uform" element={<UncontrolledForm />} />
         <Route path="/cform" element={<ControlledForm />} />
+        <Route path="/test" element={<TestState />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
